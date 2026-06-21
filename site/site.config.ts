@@ -1,0 +1,40 @@
+// Site identity, branding, and presentation config.
+// This is the main customization surface — edit freely to rebrand or restyle.
+// (Content lives in ../content and is invariant; the build engine lives in ../src.)
+
+export const CONFIG = {
+  // The canonical origin of the deployed site (no trailing slash). Used for
+  // canonical URLs, Open Graph tags, the sitemap, and the RSS feed.
+  BASE_URL: "https://example.com",
+  AUTHOR: "Your Name",
+  FAVICON_EMOJI: "✦",
+  BLOG_TITLE: "Pagewright",
+  // Short slug shown in the header "prompt", e.g. brand@host style.
+  BLOG_BRAND: "pagewright",
+  BLOG_SUBTITLE: "A typed static site generator.",
+  // Public URL of the stylesheet (output path is wired up in ../src/build.ts).
+  STYLES_HREF: "/assets/css/index.css",
+  SOCIALS: [
+    { title: "github", href: "https://github.com/your-handle/pagewright" },
+    { title: "rss", href: "/feed.xml" },
+  ],
+  // Optional privacy-friendly analytics (Umami). Leave both empty to omit the
+  // analytics snippet entirely — see site/templates/layout.ts.
+  ANALYTICS_DOMAIN: "",
+  ANALYTICS_WEBSITE_ID: "",
+  NAV: [
+    {
+      title: "Home",
+      href: "/",
+    },
+    {
+      title: "About",
+      href: "/about",
+    },
+  ],
+} as const
+
+export type Link = {
+  title: string
+  href: string
+}

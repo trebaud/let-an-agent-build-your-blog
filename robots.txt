@@ -1,0 +1,6 @@
+# Allow all well-behaved crawlers by default.
+User-agent: *
+Allow: /
+
+# Point crawlers at the sitemap. Update the host to match CONFIG.BASE_URL.
+Sitemap: https://example.com/sitemap.xml

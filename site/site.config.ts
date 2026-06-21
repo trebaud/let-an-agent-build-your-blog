@@ -1,6 +1,6 @@
 // Site identity, branding, and presentation config.
 // This is the main customization surface — edit freely to rebrand or restyle.
-// (Content lives in ../content and is invariant; the build engine lives in ../src.)
+// (Content lives in ../content and is invariant; the build engine lives in ../core.)
 
 export const CONFIG = {
   // The canonical origin of the deployed site (no trailing slash). Used for
@@ -12,7 +12,7 @@ export const CONFIG = {
   // Short slug shown in the header "prompt", e.g. brand@host style.
   BLOG_BRAND: "pagewright",
   BLOG_SUBTITLE: "A typed static site generator.",
-  // Public URL of the stylesheet (output path is wired up in ../src/build.ts).
+  // Public URL of the stylesheet (output path is wired up in ../core/build.ts).
   STYLES_HREF: "/assets/css/index.css",
   SOCIALS: [
     { title: "github", href: "https://github.com/your-handle/pagewright" },

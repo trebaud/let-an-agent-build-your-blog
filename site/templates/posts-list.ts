@@ -1,4 +1,4 @@
-import type { Post } from "../../src/content"
+import type { Post } from "../../core/content"
 
 export const renderPostsList = (posts: Post[]) => {
   // Group posts by year

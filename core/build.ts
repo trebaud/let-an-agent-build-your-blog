@@ -1,5 +1,5 @@
 // Build engine — INVARIANT.
-// Orchestrates: load content (./content via src/content) -> render (site/) -> write public/.
+// Orchestrates: load content (./content via core/content) -> render (site/) -> write public/.
 // Owns the stable output structure (post URLs, sitemap, RSS). Depends on the content model
 // and the presentation layer; neither depends back on this module.
 
@@ -29,9 +29,8 @@ async function copyStatic() {
   const cssOut = `${OUTPUT_DIR}${CONFIG.STYLES_HREF}`
   await fs.mkdir(path.dirname(cssOut), { recursive: true })
   await fs.cp(STYLES_SOURCE, cssOut)
-  // Site static files (404 page, etc.) -> output root
+  // Site static files (404 page, robots.txt, etc.) -> output root
   await fs.cp("./site/assets", OUTPUT_DIR, { recursive: true })
-  await fs.cp("./robots.txt", `${OUTPUT_DIR}/robots.txt`)
 }
 
 async function generatePages(

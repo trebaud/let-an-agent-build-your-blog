@@ -1,6 +1,6 @@
 // Presentation layer barrel — the single import point the build engine uses to render.
 // Everything the site looks like (layout, styling, branding, templates) lives under site/.
-// Edit these freely to customize the site; the content (../content) and engine (../src)
+// Edit these freely to customize the site; the content (../content) and engine (../core)
 // stay untouched.
 
 export { CONFIG } from "./site.config"

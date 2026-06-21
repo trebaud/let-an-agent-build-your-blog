@@ -11,10 +11,10 @@ realize the user's desired look by editing the `site/` layer only, then verify t
 
 ## The one rule
 
-**Edit `site/` only.** Never edit `content/` or `src/` to achieve a visual change.
+**Edit `site/` only.** Never edit `content/` or `core/` to achieve a visual change.
 
 - `content/` is the writing — the invariant. Don't restyle by touching posts/pages.
-- `src/` is the engine and the typed contract (`Post`, `Page`, `PostMeta`) plus the stable
+- `core/` is the engine and the typed contract (`Post`, `Page`, `PostMeta`) plus the stable
   output structure (post URLs `/posts/<slug>/`, `sitemap.xml`, `feed.xml`). Don't edit it to
   restyle. If a request truly cannot be done without changing the contract or URL structure,
   stop and tell the user — that's a renegotiation, not a customization.
@@ -29,14 +29,14 @@ realize the user's desired look by editing the `site/` layer only, then verify t
 | Change how a single post renders (byline, tags, etc.)  | `site/templates/post.ts`         |
 | Change the post listing (grouping, table, cards…)      | `site/templates/posts-list.ts`   |
 | Rebrand: title, tagline, author, socials, analytics    | `site/site.config.ts`            |
-| Change the canonical host / base URL                    | `BASE_URL` in `site/site.config.ts` (also update `robots.txt`) |
+| Change the canonical host / base URL                    | `BASE_URL` in `site/site.config.ts` (also update `site/assets/robots.txt`) |
 | Change the 404 / error page or other static files       | `site/assets/` (copied verbatim to the site root) |
 
 Everything the engine renders is reachable from `site/index.ts` (the barrel it imports).
 
 ## Contract you can rely on
 
-The templates receive typed values from `src/content.ts`. Treat these as read-only inputs:
+The templates receive typed values from `core/content.ts`. Treat these as read-only inputs:
 
 ```ts
 type PostMeta = { title: string; description?: string; pubDate: string; tags: string[]; draft: boolean }
@@ -56,7 +56,7 @@ in `site/`. `renderPage(meta, content)` wraps body HTML in the layout; the build
    bun run typecheck   # the contract still holds (catches broken template ↔ content)
    bun run build       # writes ./public with no errors
    ```
-4. For a visual sanity check, run `bun src/dev.ts` and view http://localhost:3000.
+4. For a visual sanity check, run `bun core/dev.ts` and view http://localhost:3000.
 5. For risky presentation changes, do a behavior diff: snapshot `public/` before, rebuild,
    `diff -r` (only `feed.xml`'s `lastBuildDate` is expected to differ).
 

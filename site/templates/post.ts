@@ -1,5 +1,5 @@
 import { CONFIG } from "../site.config"
-import type { Post } from "../../src/content"
+import type { Post } from "../../core/content"
 
 export const renderPostContent = (post: Post) => {
   const { meta, html, readingTime } = post

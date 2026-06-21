@@ -1,7 +1,7 @@
 # content/ — the invariant content layer
 
 This directory is the **stable, presentation-agnostic** part of the site. The build
-engine (`../src`) reads it into a typed model and the presentation layer (`../site`)
+engine (`../core`) reads it into a typed model and the presentation layer (`../site`)
 renders it. **Do not change the structure described here** — themes and the engine
 depend on it.
 
@@ -39,7 +39,7 @@ Notes:
 - `date` (or `pubDate`) drives sorting, the year grouping on the home page, sitemap
   `lastmod`, and RSS `pubDate`. Use an ISO 8601 date.
 - Drafts (`draft: true`) are excluded from the production build. They appear locally when
-  the engine runs with `INCLUDE_DRAFTS=true` (which `bun src/dev.ts` sets automatically).
+  the engine runs with `INCLUDE_DRAFTS=true` (which `bun core/dev.ts` sets automatically).
 - Code blocks are syntax-highlighted (highlight.js); annotate fences with a language.
 
 ## Page frontmatter contract
@@ -52,4 +52,4 @@ description: "…"  # optional
 ```
 
 The model these files map to (`Post`, `Page`, `PostMeta`) is defined in
-`../src/content.ts` — that is the contract between content and presentation.
+`../core/content.ts` — that is the contract between content and presentation.

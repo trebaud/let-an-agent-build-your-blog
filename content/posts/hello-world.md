@@ -14,7 +14,7 @@ all without you writing any HTML.
 
 ```
 content/   what you write — posts, pages, images   (the contract)
-src/       the build engine — parses content, writes public/
+core/       the build engine — parses content, writes public/
 site/      how it looks — layout, styles, branding  (yours to change)
 ```
 

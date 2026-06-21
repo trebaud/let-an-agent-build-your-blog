@@ -17,7 +17,7 @@ of archives. Pagewright refuses that. It rests on two commitments.
 
 ### 1. Content is a contract, enforced through types
 
-`src/content.ts` parses your Markdown into plain, typed objects — and that type *is* the
+`core/content.ts` parses your Markdown into plain, typed objects — and that type *is* the
 interface between what you write and everything that renders it:
 
 ```ts
@@ -60,7 +60,7 @@ exactly what makes "let an agent redesign it" a reasonable thing to say.
 content/   The writing — posts, pages, images. Invariant, stable structure.
            See content/README.md for the frontmatter contract.
 
-src/       The build engine.
+core/       The build engine.
            - index.ts    entry point — runs the build
            - content.ts  parses content/ into a typed model (Post, Page, PostMeta)
                          — this model is the contract between content and presentation
@@ -83,7 +83,7 @@ site/      The presentation layer — everything the site looks like.
 
 ```bash
 bun install
-bun src/dev.ts  # build + watch content + serve at http://localhost:3000 (drafts included)
+bun core/dev.ts  # build + watch content + serve at http://localhost:3000 (drafts included)
 ```
 
 Then:
@@ -96,7 +96,7 @@ Then:
 ## Build & deploy
 
 ```bash
-bun run build      # rm -rf public && bun src/index.ts  -> writes ./public
+bun run build      # rm -rf public && bun core/index.ts  -> writes ./public
 bun run typecheck  # tsc --noEmit — validates the content/presentation contract
 ```
 

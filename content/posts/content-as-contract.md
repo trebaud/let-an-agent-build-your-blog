@@ -12,7 +12,7 @@ three years of archives. Pagewright draws a hard line instead.
 
 ## The contract is a type
 
-`src/content.ts` reads your Markdown and produces plain, typed objects:
+`core/content.ts` reads your Markdown and produces plain, typed objects:
 
 ```ts
 export type PostMeta = {
@@ -36,7 +36,7 @@ presentation layer imports these as **types only** — it never parses Markdown,
 engine never emits site HTML. The dependency arrow points one way:
 
 ```
-content/  →  src/ (engine)  →  site/ (presentation)  →  public/
+content/  →  core/ (engine)  →  site/ (presentation)  →  public/
 ```
 
 ## What the contract buys you
@@ -52,7 +52,7 @@ content/  →  src/ (engine)  →  site/ (presentation)  →  public/
 
 Adding posts is encouraged; _reshaping_ them is a breaking change to every theme. So the
 rule is simple: change `content/` to say new things, change `site/` to show them
-differently, and leave `src/` — the contract — alone unless you mean to renegotiate it.
+differently, and leave `core/` — the contract — alone unless you mean to renegotiate it.
 
 Next: presentation is the opposite of invariant. It's meant to be rewritten — ideally by
 an agent. See [Customize with an agent](/posts/customize-with-an-agent/).

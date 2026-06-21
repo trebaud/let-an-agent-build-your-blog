@@ -8,7 +8,7 @@ draft: false
 
 Most static site generators blur the line between what you wrote and how it's shown. A
 theme reaches into your posts; a post hard-codes a CSS class; a redesign quietly breaks
-three years of archives. Pagewright draws a hard line instead.
+three years of archives. This project draws a hard line instead.
 
 ## The contract is a type
 
@@ -42,17 +42,17 @@ content/  →  core/ (engine)  →  site/ (presentation)  →  public/
 ## What the contract buys you
 
 - **A redesign can't corrupt your archive.** Themes consume `Post`; they can't reshape it.
-- **The compiler is the linter.** `bun run typecheck` validates that every template still
+- **The compiler is the linter.** `bun run typecheck` validates that every component still
   satisfies the contract. Rename a field and TypeScript shows you every render site that
   breaks, before you ship.
 - **Content is portable.** Because posts know nothing about presentation, you can restyle,
   re-theme, or even re-platform without editing a single post.
 
-## The invariant
+## What stays fixed
 
 Adding posts is encouraged; _reshaping_ them is a breaking change to every theme. So the
 rule is simple: change `content/` to say new things, change `site/` to show them
 differently, and leave `core/` — the contract — alone unless you mean to renegotiate it.
 
-Next: presentation is the opposite of invariant. It's meant to be rewritten — ideally by
+Next: presentation is the exact opposite. It's meant to be rewritten — ideally by
 an agent. See [Customize with an agent](/posts/customize-with-an-agent/).

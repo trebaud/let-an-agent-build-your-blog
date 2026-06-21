@@ -1,5 +1,5 @@
 {
-  "name": "pagewright",
+  "name": "let-an-agent-build-your-blog",
   "version": "0.1.0",
   "description": "A small, typed static site generator where content is a contract and presentation is fully agent-customizable.",
   "module": "core/index.ts",

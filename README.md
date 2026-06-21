@@ -1,117 +1,95 @@
-# Pagewright
+# Let an agent build your blog
 
-A small, hand-rolled static site generator (Bun + TypeScript) built around one idea:
+A small static site generator (Bun + TypeScript) with one idea:
 
-> **Content is a contract, enforced by types. Presentation is open to any customization —
-> ideally driven by an agent.**
+> **You don't need a templating engine.** Your content is typed data. Your theme is plain
+> TypeScript functions. An agent restyles the site; the types guarantee it can't touch a word
+> you wrote.
 
-The codebase is split into three layers so that **content and presentation are fully
-independent**: you can restyle, re-theme, or rebrand the whole site without touching a
-single post, and you can write posts without knowing anything about the templates.
+No Liquid, no Handlebars, no JSX runtime — a component is just a function that takes typed
+content and returns an HTML string. That makes the whole presentation layer trivial for an
+agent (or you) to rewrite, and impossible to rewrite *wrongly*: if a redesign breaks the
+contract, `tsc` fails the build.
 
-## Philosophy
+## Architecture
 
-Most static site generators let presentation leak into content and vice-versa: a theme
-reaches into your posts, a post hard-codes a CSS class, and a redesign quietly breaks years
-of archives. Pagewright refuses that. It rests on two commitments.
-
-### 1. Content is a contract, enforced through types
-
-`core/content.ts` parses your Markdown into plain, typed objects — and that type *is* the
-interface between what you write and everything that renders it:
-
-```ts
-type PostMeta = { title: string; description?: string; pubDate: string; tags: string[]; draft: boolean }
-type Post     = { meta: PostMeta; slug: string; html: string; readingTime: number }
-type Page     = { title: string; description?: string; slug: string; html: string }
-```
-
-The dependency arrow points one way and never back:
+Three layers, one rule: **content and design never touch each other.**
 
 ```
-content/  →  site/ (presentation)  →  public/
+content/   The writing — posts, pages, images. Typed, stable structure.
+core/      The engine — parses content into a typed model, renders the site.
+site/      The theme — everything the site looks like. Yours to rewrite.
+
+content/  →  core/ (parse)  →  site/ (render)  →  public/
 ```
 
-Content never depends on presentation; the engine never emits site HTML; the presentation
-layer imports the content model **as a type only** and never parses Markdown. Because the
-boundary is a TypeScript type, `bun run typecheck` is your linter: rename a field and the
-compiler shows you every template that breaks before you ship. A redesign *provably* cannot
-reshape or corrupt your writing.
+The arrow only points one way:
 
-### 2. Presentation is open to any customization — via an agent skill
+- `core/content.ts` parses Markdown into plain typed objects (`Post`, `Page`, `PostMeta`).
+  That type **is** the contract between writing and design.
+- `site/` imports that model **as a type only** — it never parses Markdown, and the engine
+  never emits site HTML. Components are ordinary functions (`site/components/*.ts`):
 
-Everything the site looks like lives under `site/` and is reachable from a single barrel
-(`site/index.ts`). That layer is meant to be rewritten freely. To make that safe and easy,
-the repo ships an **agent skill** at [`.claude/skills/customize/`](.claude/skills/customize/SKILL.md)
-that encodes the boundaries — which files are fair game, which are off-limits, and how to
-verify a change. Instead of editing CSS by hand, you describe the outcome:
+  ```ts
+  export const renderPostContent = (post: Post) => `<article>…</article>`
+  ```
+
+- Because the boundary is a TypeScript type, `bun run typecheck` is your safety net: rename a
+  field and the compiler points at every component that breaks. **A redesign provably cannot
+  reshape or corrupt your posts.**
+
+## Content vs. design
+
+| You want to…                              | Edit only…                |
+| ----------------------------------------- | ------------------------- |
+| Write or edit a post / page               | `content/`                |
+| Restyle, re-theme, change colors/fonts    | `site/styles/index.css`   |
+| Change layout, header, footer, nav        | `site/components/*.ts`     |
+| Rebrand: title, tagline, author, socials  | `site/site.config.ts`     |
+
+You can restyle the entire site without opening a single post, and write posts without
+knowing anything about the theme. Add to `content/` freely, but don't reshape it (see
+`content/README.md` for the frontmatter contract).
+
+## Workflow: let an agent do the theming
+
+The repo ships an agent skill at
+[`.claude/skills/customize/`](.claude/skills/customize/SKILL.md). Instead of hand-editing CSS
+and components, describe the outcome and let the **customize** skill drive it:
 
 > "Make it a warm sepia theme with a serif body font and a centered single-column layout."
 
 > "Turn the post listing into a dense table and add a projects page to the nav."
 
-The agent edits `site/` only, then runs `bun run build` and `bun run typecheck`. The typed
-contract guarantees it cannot silently break your posts while restyling them. That safety is
-exactly what makes "let an agent redesign it" a reasonable thing to say.
-
-## Architecture
-
-```
-content/   The writing — posts, pages, images. Invariant, stable structure.
-           See content/README.md for the frontmatter contract.
-
-core/       The build engine.
-           - index.ts    entry point — runs the build
-           - content.ts  parses content/ into a typed model (Post, Page, PostMeta)
-                         — this model is the contract between content and presentation
-           - build.ts    orchestrates load -> render -> write, and owns the stable
-                         output structure (post URLs, sitemap.xml, feed.xml)
-           - dev.ts      build + watch content + serve locally (drafts included)
-           - server.ts   static file server for ./public
-
-site/      The presentation layer — everything the site looks like.
-           - site.config.ts   branding/identity: title, tagline, author, nav, socials,
-                              analytics, favicon, stylesheet URL
-           - styles/index.css the theme (layered on bamboo.css, light/dark)
-           - templates/       layout, nav, post, posts-list
-           - index.ts         barrel re-exporting the render functions
-
-.claude/skills/customize/   the agent skill for safe presentation changes
-```
+The skill interviews you to pin down the design, edits `site/` **only**, then runs
+`bun run build` and `bun run typecheck` to prove the content contract still holds. That
+guardrail is what makes "let an agent redesign it" safe to say.
 
 ## Quick start
 
 ```bash
 bun install
-bun core/dev.ts  # build + watch content + serve at http://localhost:3000 (drafts included)
+bun core/dev.ts   # build + watch + serve at http://localhost:3000 (drafts included)
 ```
 
 Then:
 
-1. Edit `site/site.config.ts` — set `BASE_URL`, `AUTHOR`, title, nav, socials.
-2. Add Markdown to `content/posts/` (see `content/README.md` for the frontmatter contract).
-3. Restyle by editing `site/` — or ask an agent (see the philosophy above).
-4. Delete the three starter posts and the example `about` page when you're ready.
+1. Set `BASE_URL`, `AUTHOR`, title, nav, and socials in `site/site.config.ts`.
+2. Add Markdown to `content/posts/` (frontmatter contract in `content/README.md`).
+3. Restyle by asking an agent (the **customize** skill) — or edit `site/` by hand.
+4. Delete the starter posts and example `about` page when you're ready.
 
 ## Build & deploy
 
 ```bash
-bun run build      # rm -rf public && bun core/index.ts  -> writes ./public
-bun run typecheck  # tsc --noEmit — validates the content/presentation contract
+bun run build      # generates the site into public/
+bun run typecheck  # tsc --noEmit — validates the content/design contract
 ```
 
-`./public` is a plain folder of static files; host it anywhere (Netlify, Cloudflare Pages,
-GitHub Pages, S3, Nginx…). `deploy.sh` is an example rsync-to-a-server script — adjust the
-paths at the top before using it.
-
-## Customizing
-
-- **Restyle / relayout / rebrand:** edit `site/` only. Start at `site/styles/index.css` and
-  `site/site.config.ts` — or point an agent at `.claude/skills/customize/SKILL.md`.
-- **Write content:** add Markdown to `content/posts/` or `content/pages/`.
-
-This layout is intentionally agent-friendly — see [`AGENTS.md`](AGENTS.md) for the rules an
-agent should follow when modifying the site.
+`public/` is just the build output — regenerated from scratch on every build (gitignored,
+safe to delete). Deploy its contents to any static host (Netlify, Cloudflare Pages, GitHub
+Pages, S3, Nginx…). See [`AGENTS.md`](AGENTS.md) for the rules an agent follows when working
+on the site.
 
 ## License
 

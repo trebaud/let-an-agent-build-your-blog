@@ -6,8 +6,8 @@ tags: [philosophy, agents, customization]
 draft: false
 ---
 
-If content is the invariant, the look and feel is the exact opposite: it's meant to be
-thrown away and rebuilt as often as you like. Pagewright is laid out so that an AI agent
+Where content is meant to stay stable, the look and feel is the exact opposite: it's meant to be
+thrown away and rebuilt as often as you like. The project is laid out so that an AI agent
 can do that safely.
 
 ## Everything visual is reachable from one place
@@ -17,7 +17,7 @@ can do that safely.
 ```
 site/site.config.ts     branding: title, author, nav, socials, analytics
 site/styles/index.css    the theme
-site/templates/*.ts      layout, nav, post, listing
+site/components/*.ts     layout, nav, post, listing
 ```
 
 Want a different look? You only ever touch `site/`. The content and the engine stay put.

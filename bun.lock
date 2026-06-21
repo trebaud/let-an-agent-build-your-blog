@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "pagewright",
+      "name": "let-an-agent-build-your-blog",
       "dependencies": {
         "gray-matter": "^4.0.3",
         "highlight.js": "^11.11.1",

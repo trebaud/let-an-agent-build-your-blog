@@ -3,7 +3,7 @@ title: "About"
 description: "About this site."
 ---
 
-This site is built with [Pagewright](https://github.com/your-handle/pagewright), a small
+This site is built with [Let an agent build your blog](https://github.com/your-handle/let-an-agent-build-your-blog), a small
 static site generator with one strong opinion: **content is a contract**.
 
 Replace this page with your own. It lives at `content/pages/about.md` — edit the Markdown,

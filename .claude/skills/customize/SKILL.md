@@ -1,12 +1,12 @@
 ---
 name: customize
-description: Customize the look and feel of this Pagewright site — theme, colors, fonts, layout, branding, nav, footer, post listing, SEO markup. Use when the user wants to restyle, re-theme, rebrand, change the layout, or otherwise change how the site *looks* (not its content). Triggers like "make it dark/sepia/minimal", "change the font", "redesign the home page", "add a page to the nav", "make the listing a table".
+description: Customize the look and feel of this "Let an agent build your blog" site — theme, colors, fonts, layout, branding, nav, footer, post listing, SEO markup. Use when the user wants to restyle, re-theme, rebrand, change the layout, or otherwise change how the site *looks* (not its content). Triggers like "make it dark/sepia/minimal", "change the font", "redesign the home page", "add a page to the nav", "make the listing a table".
 ---
 
-# Customizing a Pagewright site
+# Customizing a "Let an agent build your blog" site
 
-Pagewright separates **what is written** (invariant, typed content) from **how it looks**
-(freely editable presentation). This skill governs presentation changes. Your job is to
+This generator separates **what is written** (typed content) from **how it looks**
+(presentation you can freely change). This skill governs presentation changes. Your job is to
 **first agree with the user on the design**, then realize it by editing the `site/` layer
 only, then verify the build.
 
@@ -18,7 +18,7 @@ interview until you and the user share a concrete picture of the target, then co
 before touching files.
 
 1. **Look before you ask.** Read `site/styles/index.css`, `site/site.config.ts`, and the
-   relevant `site/templates/*.ts` so your questions are grounded in what exists today. Don't
+   relevant `site/components/*.ts` so your questions are grounded in what exists today. Don't
    ask about things the code already answers.
 2. **Interview.** Use the `AskUserQuestion` tool to resolve the design's open variables. Ask
    about the dimensions that actually change the outcome — typically:
@@ -44,7 +44,7 @@ Only once the design is agreed do you move to the workflow below.
 
 **Edit `site/` only.** Never edit `content/` or `core/` to achieve a visual change.
 
-- `content/` is the writing — the invariant. Don't restyle by touching posts/pages.
+- `content/` is the writing. Don't restyle by touching posts/pages.
 - `core/` is the engine and the typed contract (`Post`, `Page`, `PostMeta`) plus the stable
   output structure (post URLs `/posts/<slug>/`, `sitemap.xml`, `feed.xml`). Don't edit it to
   restyle. If a request truly cannot be done without changing the contract or URL structure,
@@ -55,10 +55,10 @@ Only once the design is agreed do you move to the workflow below.
 | If the user asks to…                                   | Edit only…                       |
 | ------------------------------------------------------ | -------------------------------- |
 | Change colors / fonts / spacing / dark mode            | `site/styles/index.css`          |
-| Change layout, header, footer, page `<head>`/meta tags | `site/templates/layout.ts`       |
-| Change the nav                                          | `site/templates/nav.ts` (+ `NAV` in `site/site.config.ts`) |
-| Change how a single post renders (byline, tags, etc.)  | `site/templates/post.ts`         |
-| Change the post listing (grouping, table, cards…)      | `site/templates/posts-list.ts`   |
+| Change layout, header, footer, page `<head>`/meta tags | `site/components/layout.ts`       |
+| Change the nav                                          | `site/components/nav.ts` (+ `NAV` in `site/site.config.ts`) |
+| Change how a single post renders (byline, tags, etc.)  | `site/components/post.ts`         |
+| Change the post listing (grouping, table, cards…)      | `site/components/posts-list.ts`   |
 | Rebrand: title, tagline, author, socials, analytics    | `site/site.config.ts`            |
 | Change the canonical host / base URL                    | `BASE_URL` in `site/site.config.ts` (also update `site/assets/robots.txt`) |
 | Change the 404 / error page or other static files       | `site/assets/` (copied verbatim to the site root) |
@@ -67,7 +67,7 @@ Everything the engine renders is reachable from `site/index.ts` (the barrel it i
 
 ## Contract you can rely on
 
-The templates receive typed values from `core/content.ts`. Treat these as read-only inputs:
+The components receive typed values from `core/content.ts`. Treat these as read-only inputs:
 
 ```ts
 type PostMeta = { title: string; description?: string; pubDate: string; tags: string[]; draft: boolean }
@@ -86,8 +86,8 @@ Run this only after the design is agreed (see "Interview first, then build" abov
 2. Make the change in `site/` only, building to the agreed spec — not to your own taste.
 3. Verify:
    ```bash
-   bun run typecheck   # the contract still holds (catches broken template ↔ content)
-   bun run build       # writes ./public with no errors
+   bun run typecheck   # the contract still holds (catches broken component ↔ content)
+   bun run build       # rebuilds the site with no errors
    ```
 4. For a visual sanity check, run `bun core/dev.ts` and view http://localhost:3000.
 5. For risky presentation changes, do a behavior diff: snapshot `public/` before, rebuild,

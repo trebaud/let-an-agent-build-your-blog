@@ -1,4 +1,4 @@
-// Build engine — INVARIANT.
+// Build engine — do not edit.
 // Orchestrates: load content (./content via core/content) -> render (site/) -> write public/.
 // Owns the stable output structure (post URLs, sitemap, RSS). Depends on the content model
 // and the presentation layer; neither depends back on this module.

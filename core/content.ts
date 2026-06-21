@@ -1,4 +1,4 @@
-// Content engine — INVARIANT.
+// Content engine — do not edit.
 // Parses content/ into a stable, typed model that the site/ presentation layer renders.
 // This module defines the contract between content and presentation:
 //   - it reads markdown + frontmatter and emits Post/Page objects
@@ -11,7 +11,7 @@ import { marked } from "marked"
 import { markedHighlight } from "marked-highlight"
 import hljs from "highlight.js"
 
-// Configure marked with syntax highlighting (content rendering, invariant).
+// Configure marked with syntax highlighting (content rendering — engine internals).
 marked.use(
   markedHighlight({
     highlight: (code, lang) => {

@@ -1,4 +1,4 @@
-# content/ — the invariant content layer
+# content/ — the content layer
 
 This directory is the **stable, presentation-agnostic** part of the site. The build
 engine (`../core`) reads it into a typed model and the presentation layer (`../site`)
@@ -18,7 +18,7 @@ content/
 
 - A post at `posts/my-post.md` is published at `/posts/my-post/`.
 - A page at `pages/about.md` is published at `/about/`. `pages/home.md` becomes `/`.
-- Anything in `content/assets/` is copied to `public/assets/`, so reference it with an
+- Anything in `content/assets/` is served at `/assets/`, so reference it with an
   absolute path like `/assets/img/diagram.png`.
 
 ## Post frontmatter contract

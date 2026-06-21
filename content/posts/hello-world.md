@@ -1,20 +1,20 @@
 ---
 title: "Hello, world"
-description: "Your first post on a Pagewright site — and a tour of what's in the box."
+description: "Your first post — and a tour of what's in the box."
 date: 2026-01-10T09:00:00Z
 tags: [meta, getting-started]
 draft: false
 ---
 
 Welcome to your new site. If you can read this, the build engine parsed this file's
-frontmatter, rendered the Markdown below into HTML, and a template wrapped it in a layout —
+frontmatter, rendered the Markdown below into HTML, and a component wrapped it in a layout —
 all without you writing any HTML.
 
 ## Where things live
 
 ```
 content/   what you write — posts, pages, images   (the contract)
-core/       the build engine — parses content, writes public/
+core/       the build engine — parses content, renders the site
 site/      how it looks — layout, styles, branding  (yours to change)
 ```
 

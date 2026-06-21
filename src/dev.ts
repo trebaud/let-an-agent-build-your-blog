@@ -34,7 +34,7 @@ console.log("🚀 Starting dev server...")
 console.log("👀 Watching for changes...")
 
 // Start the server with watch mode
-const serverProcess = spawn("bun", ["--watch", "server.ts"], {
+const serverProcess = spawn("bun", ["--watch", "src/server.ts"], {
   stdio: "inherit",
 })
 

@@ -29,8 +29,8 @@ async function copyStatic() {
   const cssOut = `${OUTPUT_DIR}${CONFIG.STYLES_HREF}`
   await fs.mkdir(path.dirname(cssOut), { recursive: true })
   await fs.cp(STYLES_SOURCE, cssOut)
-  // Root static files
-  await fs.cp("./404.html", `${OUTPUT_DIR}/404.html`)
+  // Site static files (404 page, etc.) -> output root
+  await fs.cp("./site/assets", OUTPUT_DIR, { recursive: true })
   await fs.cp("./robots.txt", `${OUTPUT_DIR}/robots.txt`)
 }
 

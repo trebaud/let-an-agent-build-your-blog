@@ -39,7 +39,7 @@ Notes:
 - `date` (or `pubDate`) drives sorting, the year grouping on the home page, sitemap
   `lastmod`, and RSS `pubDate`. Use an ISO 8601 date.
 - Drafts (`draft: true`) are excluded from the production build. They appear locally when
-  the engine runs with `INCLUDE_DRAFTS=true` (which `bun dev.ts` sets automatically).
+  the engine runs with `INCLUDE_DRAFTS=true` (which `bun src/dev.ts` sets automatically).
 - Code blocks are syntax-highlighted (highlight.js); annotate fences with a language.
 
 ## Page frontmatter contract

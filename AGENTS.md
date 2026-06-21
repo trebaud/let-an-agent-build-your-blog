@@ -41,7 +41,7 @@ looks like is reachable from `site/index.ts` (the barrel the engine imports).
 ```bash
 bun run build      # writes ./public
 bun run typecheck  # validates the content/presentation contract (tsc --noEmit)
-bun dev.ts         # build + watch + serve at http://localhost:3000 (includes drafts)
+bun src/dev.ts     # build + watch + serve at http://localhost:3000 (includes drafts)
 ```
 
 After a change, run `bun run build` and confirm it succeeds. For presentation changes,

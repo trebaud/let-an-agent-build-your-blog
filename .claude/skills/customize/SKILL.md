@@ -30,6 +30,7 @@ realize the user's desired look by editing the `site/` layer only, then verify t
 | Change the post listing (grouping, table, cards…)      | `site/templates/posts-list.ts`   |
 | Rebrand: title, tagline, author, socials, analytics    | `site/site.config.ts`            |
 | Change the canonical host / base URL                    | `BASE_URL` in `site/site.config.ts` (also update `robots.txt`) |
+| Change the 404 / error page or other static files       | `site/assets/` (copied verbatim to the site root) |
 
 Everything the engine renders is reachable from `site/index.ts` (the barrel it imports).
 
@@ -55,15 +56,17 @@ in `site/`. `renderPage(meta, content)` wraps body HTML in the layout; the build
    bun run typecheck   # the contract still holds (catches broken template ↔ content)
    bun run build       # writes ./public with no errors
    ```
-4. For a visual sanity check, run `bun dev.ts` and view http://localhost:3000.
+4. For a visual sanity check, run `bun src/dev.ts` and view http://localhost:3000.
 5. For risky presentation changes, do a behavior diff: snapshot `public/` before, rebuild,
    `diff -r` (only `feed.xml`'s `lastBuildDate` is expected to differ).
 
 ## Notes
 
-- The default theme layers on `bamboo.css` (loaded in `layout.ts`) plus a Tokyo Night-ish
-  palette in `site/styles/index.css`, with a light/dark toggle. You may replace any of this
-  wholesale — drop the `bamboo.css` link and write your own CSS if the user wants.
+- The default theme builds on a small base stylesheet (linked in `layout.ts`) plus a palette
+  and design tokens in `site/styles/index.css`, with a light/dark toggle. None of this is
+  load-bearing for the engine — read what `layout.ts` actually links and what `index.css`
+  defines, then adapt. You may swap the base stylesheet, rewrite the palette, or drop the
+  external link and write your own CSS wholesale if the user wants a different look.
 - Analytics is optional: set `ANALYTICS_DOMAIN`/`ANALYTICS_WEBSITE_ID` in the config, or
   leave them empty to omit the snippet.
 - Keep changes self-contained to `site/`. If you find yourself wanting to add a field to a

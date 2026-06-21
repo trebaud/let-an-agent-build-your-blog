@@ -7,5 +7,5 @@ draft: true
 ---
 
 Because this file has `draft: true`, it's excluded from `bun run build` but shows up when
-you run `bun dev.ts` (which sets `INCLUDE_DRAFTS=true`). Use drafts to stage posts before
+you run `bun src/dev.ts` (which sets `INCLUDE_DRAFTS=true`). Use drafts to stage posts before
 they go live. Delete this file whenever you like.

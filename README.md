@@ -29,7 +29,7 @@ type Page     = { title: string; description?: string; slug: string; html: strin
 The dependency arrow points one way and never back:
 
 ```
-content/  →  src/ (engine)  →  site/ (presentation)  →  public/
+content/  →  site/ (presentation)  →  public/
 ```
 
 Content never depends on presentation; the engine never emits site HTML; the presentation
@@ -61,10 +61,13 @@ content/   The writing — posts, pages, images. Invariant, stable structure.
            See content/README.md for the frontmatter contract.
 
 src/       The build engine.
+           - index.ts    entry point — runs the build
            - content.ts  parses content/ into a typed model (Post, Page, PostMeta)
                          — this model is the contract between content and presentation
            - build.ts    orchestrates load -> render -> write, and owns the stable
                          output structure (post URLs, sitemap.xml, feed.xml)
+           - dev.ts      build + watch content + serve locally (drafts included)
+           - server.ts   static file server for ./public
 
 site/      The presentation layer — everything the site looks like.
            - site.config.ts   branding/identity: title, tagline, author, nav, socials,
@@ -74,14 +77,13 @@ site/      The presentation layer — everything the site looks like.
            - index.ts         barrel re-exporting the render functions
 
 .claude/skills/customize/   the agent skill for safe presentation changes
-index.ts   Entry point — runs the build.
 ```
 
 ## Quick start
 
 ```bash
 bun install
-bun dev.ts      # build + watch content + serve at http://localhost:3000 (drafts included)
+bun src/dev.ts  # build + watch content + serve at http://localhost:3000 (drafts included)
 ```
 
 Then:
@@ -94,7 +96,7 @@ Then:
 ## Build & deploy
 
 ```bash
-bun run build      # rm -rf public && bun index.ts  -> writes ./public
+bun run build      # rm -rf public && bun src/index.ts  -> writes ./public
 bun run typecheck  # tsc --noEmit — validates the content/presentation contract
 ```
 

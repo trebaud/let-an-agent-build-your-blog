@@ -2,7 +2,7 @@
   "name": "pagewright",
   "version": "0.1.0",
   "description": "A small, typed static site generator where content is a contract and presentation is fully agent-customizable.",
-  "module": "index.ts",
+  "module": "src/index.ts",
   "type": "module",
   "license": "MIT",
   "devDependencies": {
@@ -18,8 +18,8 @@
     "marked-highlight": "^2.2.3"
   },
   "scripts": {
-    "build": "rm -rf public && bun index.ts",
-    "dev": "bun dev.ts",
+    "build": "rm -rf public && bun src/index.ts",
+    "dev": "bun src/dev.ts",
     "typecheck": "bunx tsc --noEmit"
   }
 }

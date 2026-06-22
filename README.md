@@ -40,8 +40,9 @@ The skill interviews you to pin down the design, edits `site/` **only**
 
 ## Theme gallery
 
-Four themes, each built by the **customize** skill from the same content, each living on its
-own branch.
+Eight themes, each built by the **customize** skill from the same content, each living on its
+own branch. The first four are practical starting points; the next four push the framework
+into more original, whimsical territory to show how far the presentation layer can travel.
 
 ### Terminal / dev — the default
 
@@ -67,6 +68,38 @@ A bold masthead and a responsive card grid with category kickers and an accent r
 A centered hero with avatar, tagline, and social links over a compact post list.
 
 ![Personal landing theme: centered hero with avatar and social pills, opening a post, then a mint dark mode](docs/themes/personal.gif)
+
+---
+
+The next four lean into personality — same content, same engine, wildly different worlds.
+
+### Retro 90s web — [`theme/retro`](../../tree/theme/retro)
+
+A Web 1.0 fever dream: a tiled teal wallpaper, a Windows-95 window with a scrolling marquee
+title bar, a blinking `NEW!` badge, a visitor counter, and a "best viewed in Netscape" footer.
+
+![Retro 90s theme: teal-tiled Windows-95 window blog with a marquee title bar and visitor counter, opening a post, then toggling to a neon night-surfer dark mode](docs/themes/retro.gif)
+
+### Hand-drawn notebook — [`theme/notebook`](../../tree/theme/notebook)
+
+Marker-on-paper: a ruled cream page with a red margin line, handwriting fonts, SVG-wobbled
+doodle borders, sticky-note accents, and a to-do-checklist post list. Dark mode is a chalkboard.
+
+![Hand-drawn notebook theme: ruled cream paper with handwriting and a checklist post list, opening a post, then toggling to a chalkboard dark mode](docs/themes/notebook.gif)
+
+### Vaporwave / synthwave — [`theme/vaporwave`](../../tree/theme/vaporwave)
+
+80s retro-future, dark by default: a glowing chrome title over a synthwave sun and a neon
+perspective-grid horizon. Toggling reveals a pastel "daytime Miami" light mode.
+
+![Vaporwave theme: neon chrome title over a synthwave sun and grid horizon on deep purple, opening a post, then toggling to a pastel daytime Miami light mode](docs/themes/vaporwave.gif)
+
+### Cosmic storybook — [`theme/cosmic`](../../tree/theme/cosmic)
+
+A dreamy night sky: a twinkling star field, a glowing moon, an elegant serif with a gold
+drop-cap, and ornamental dividers. Toggling fades the stars into a soft dawn.
+
+![Cosmic storybook theme: serif blog over a twinkling night sky with a glowing moon and gold drop-cap, opening a post, then toggling to a soft dawn light mode](docs/themes/cosmic.gif)
 
 Each theme is the diff of a single `git` branch against `main` — `site/styles/index.css`,
 `site/site.config.ts`, and (for the editorial/personal layouts) a component or two. Nothing

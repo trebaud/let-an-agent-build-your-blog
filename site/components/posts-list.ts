@@ -25,7 +25,7 @@ export const renderPostsList = (posts: Post[]) => {
           })
           return `<li class="post-row">
             <a href="/posts/${slug}" class="post-link">
-              <span class="post-arrow">→</span>
+              <span class="post-arrow">▸</span>
               <span class="post-title">${meta.title}${meta.draft ? ` <span class="draft-badge">draft</span>` : ""}</span>
               <span class="post-meta">${formattedDate} · ${readingTime} min</span>
             </a>

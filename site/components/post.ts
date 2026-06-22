@@ -17,7 +17,7 @@ export const renderPostContent = (post: Post) => {
     ${tags.length ? `<span class="post-tags">${tags.map((t) => `<span class="post-tag">#${t}</span>`).join("")}</span>` : ""}
   </div>`
 
-  return `<a href="/" class="post-back">← back</a>
+  return `<a href="/" class="post-back">‹ back</a>
 <article class="post">
   <header class="post-head">
     <h1>${meta.title}</h1>

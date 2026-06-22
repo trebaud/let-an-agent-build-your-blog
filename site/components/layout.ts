@@ -60,23 +60,29 @@ export const renderPage = (meta: PageMeta, content: string) => {
         } catch (e) {}
       })();
     </script>
-    <link rel="stylesheet" href="https://unpkg.com/bamboo.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Audiowide&family=Monoton&family=Orbitron:wght@400..900&family=Rajdhani:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="${CONFIG.STYLES_HREF}">
     ${jsonLd ? `<script type="application/ld+json">${jsonLd}</script>` : ""}
     ${CONFIG.ANALYTICS_DOMAIN && CONFIG.ANALYTICS_WEBSITE_ID ? `<script defer src="https://${CONFIG.ANALYTICS_DOMAIN}/script.js" data-website-id="${CONFIG.ANALYTICS_WEBSITE_ID}"></script>` : ""}
   </head>
   <body>
+    <div class="vapor-bg" aria-hidden="true">
+      <div class="vapor-grid"></div>
+    </div>
     <header class="site-header">
       <div class="site-bar">
         <a href="/" class="site-brand">
-          <span class="site-prompt">${CONFIG.FAVICON_EMOJI}</span>${CONFIG.BLOG_BRAND}
+          <span class="vapor-sun" aria-hidden="true"></span>
+          <span class="site-brand-text">${CONFIG.BLOG_BRAND}</span>
         </a>
         <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle color theme">
           <span class="theme-icon theme-icon-dark">◑</span>
           <span class="theme-icon theme-icon-light">◐</span>
         </button>
       </div>
-      <p class="site-tagline">~ ${CONFIG.BLOG_SUBTITLE}</p>
+      <p class="site-tagline">${CONFIG.BLOG_SUBTITLE}</p>
       ${renderNavBar(path)}
     </header>
     <main>

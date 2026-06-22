@@ -60,32 +60,44 @@ export const renderPage = (meta: PageMeta, content: string) => {
         } catch (e) {}
       })();
     </script>
-    <link rel="stylesheet" href="https://unpkg.com/bamboo.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Patrick+Hand&family=Shantell+Sans:wght@400;500;600&display=swap">
     <link rel="stylesheet" href="${CONFIG.STYLES_HREF}">
     ${jsonLd ? `<script type="application/ld+json">${jsonLd}</script>` : ""}
     ${CONFIG.ANALYTICS_DOMAIN && CONFIG.ANALYTICS_WEBSITE_ID ? `<script defer src="https://${CONFIG.ANALYTICS_DOMAIN}/script.js" data-website-id="${CONFIG.ANALYTICS_WEBSITE_ID}"></script>` : ""}
   </head>
   <body>
+    <!-- Hidden SVG: hand-drawn "wobble" displacement filter for bordered boxes -->
+    <svg class="doodle-defs" aria-hidden="true" focusable="false" width="0" height="0">
+      <defs>
+        <filter id="wobble">
+          <feTurbulence type="fractalNoise" baseFrequency="0.012 0.018" numOctaves="2" seed="7" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.2" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+      </defs>
+    </svg>
     <header class="site-header">
       <div class="site-bar">
         <a href="/" class="site-brand">
-          <span class="site-prompt">${CONFIG.FAVICON_EMOJI}</span>${CONFIG.BLOG_BRAND}
+          <span class="site-prompt">${CONFIG.FAVICON_EMOJI}</span>
+          <span class="site-brand-text">${CONFIG.BLOG_BRAND}</span>
         </a>
         <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle color theme">
-          <span class="theme-icon theme-icon-dark">◑</span>
-          <span class="theme-icon theme-icon-light">◐</span>
+          <span class="theme-icon theme-icon-dark">☾</span>
+          <span class="theme-icon theme-icon-light">☀</span>
         </button>
       </div>
-      <p class="site-tagline">~ ${CONFIG.BLOG_SUBTITLE}</p>
+      <p class="site-tagline">~ ${CONFIG.BLOG_SUBTITLE} ~</p>
       ${renderNavBar(path)}
     </header>
     <main>
       ${content}
     </main>
     <footer class="site-footer">
-      <span class="footer-copy">© ${new Date().getFullYear()} ${CONFIG.AUTHOR}</span>
+      <span class="footer-copy">✦ scribbled by ${CONFIG.AUTHOR} · © ${new Date().getFullYear()} ✦</span>
       <span class="footer-links">
-        ${CONFIG.SOCIALS.map((s) => `<a href="${s.href}">${s.title}</a>`).join("")}
+        ${CONFIG.SOCIALS.map((s) => `<a href="${s.href}">↳ ${s.title}</a>`).join("")}
       </span>
     </footer>
     <script>

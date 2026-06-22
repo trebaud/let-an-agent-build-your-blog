@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About | Let an agent build your blog</title>
+    <meta name="description" content="About this site." />
+    <meta name="author" content="Your Name" />
+    <link rel="canonical" href="https://trebaud.github.io/let-an-agent-build-your-blog/vaporwave/about" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="About | Let an agent build your blog" />
+    <meta property="og:description" content="About this site." />
+    <meta property="og:url" content="https://trebaud.github.io/let-an-agent-build-your-blog/vaporwave/about" />
+    <meta property="og:site_name" content="Let an agent build your blog" />
+    
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="About | Let an agent build your blog" />
+    <meta name="twitter:description" content="About this site." />
+
+    <!-- Feeds -->
+    <link rel="alternate" type="application/rss+xml" title="Let an agent build your blog" href="https://trebaud.github.io/let-an-agent-build-your-blog/vaporwave/feed.xml" />
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌴</text></svg>">
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Audiowide&family=Monoton&family=Orbitron:wght@400..900&family=Rajdhani:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="/let-an-agent-build-your-blog/vaporwave/assets/css/index.css">
+    
+    
+  </head>
+  <body>
+    <div class="vapor-bg" aria-hidden="true">
+      <div class="vapor-grid"></div>
+    </div>
+    <header class="site-header">
+      <div class="site-bar">
+        <a href="/let-an-agent-build-your-blog/vaporwave/" class="site-brand">
+          <span class="vapor-sun" aria-hidden="true"></span>
+          <span class="site-brand-text">ＡＧＥＮＴＷＡＶＥ</span>
+        </a>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle color theme">
+          <span class="theme-icon theme-icon-dark">◑</span>
+          <span class="theme-icon theme-icon-light">◐</span>
+        </button>
+      </div>
+      <p class="site-tagline">▓▒░ dispatches from the digital sunset ░▒▓</p>
+      <nav><a href="/let-an-agent-build-your-blog/vaporwave/" aria-current=false>Home</a> <a href="/let-an-agent-build-your-blog/vaporwave/about" aria-current=true>About</a></nav>
+    </header>
+    <main>
+      <p>This site is built with <a href="https://github.com/your-handle/let-an-agent-build-your-blog">Let an agent build your blog</a>, a small
+static site generator with one strong opinion: <strong>content is a contract</strong>.</p>
+<p>Replace this page with your own. It lives at <code>content/pages/about.md</code> — edit the Markdown,
+keep the <code>title</code> in the frontmatter, and rebuild. To change how it <em>looks</em>, you never touch
+this file; that&#39;s the job of the <code>site/</code> layer (or just ask an agent — see the README).</p>
+<ul>
+<li>Add posts to <code>content/posts/</code></li>
+<li>Add pages to <code>content/pages/</code></li>
+<li>Rebrand and restyle in <code>site/</code></li>
+</ul>
+
+    </main>
+    <footer class="site-footer">
+      <span class="footer-copy">© 2026 Your Name</span>
+      <span class="footer-links">
+        <a href="https://github.com/your-handle/let-an-agent-build-your-blog">github</a><a href="/let-an-agent-build-your-blog/vaporwave/feed.xml">rss feed</a>
+      </span>
+    </footer>
+    <script>
+      (function () {
+        var btn = document.getElementById("theme-toggle");
+        if (!btn) return;
+        btn.addEventListener("click", function () {
+          var current =
+            document.documentElement.dataset.theme ||
+            (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+          var next = current === "dark" ? "light" : "dark";
+          document.documentElement.dataset.theme = next;
+          try { localStorage.setItem("theme", next); } catch (e) {}
+        });
+      })();
+    </script>
+  </body>
+</html>

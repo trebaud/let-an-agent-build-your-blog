@@ -1,0 +1,717 @@
+/* ==========================================================================
+   Cosmic storybook — a dreamy night-sky theme
+   - DARK (deep night sky) is the default look (first paint is on-brand)
+   - "light" toggle is a soft "dawn" variant
+   - Elegant serifs (EB Garamond body, Cinzel display), a CSS star field + moon
+   - Self-contained: no bamboo.css; Google Fonts loaded in layout <head>
+   ========================================================================== */
+
+/* --- Design tokens -------------------------------------------------------- */
+
+/* Default (no data-theme) = deep night sky, so first paint is on-brand */
+:root {
+  --sky-top: #0d1024;
+  --sky-bottom: #141a3a;
+  --bg-soft: #1a2046;
+  --txt: #e8e6ff;          /* soft lavender-white */
+  --muted: #aab4ff;        /* moonlight periwinkle */
+  --line: rgba(170, 180, 255, 0.18);
+  --accent: #f5d76e;       /* warm gold — links, stars, drop caps */
+  --accent-glow: rgba(245, 215, 110, 0.35);
+  --accent-soft: rgba(245, 215, 110, 0.12);
+  --periwinkle: #aab4ff;
+  --star-color: rgba(255, 255, 255, 0.9);
+  --star-gold: rgba(245, 215, 110, 0.85);
+  --moon-core: #fff7da;
+  --moon-edge: #d9d2ff;
+  --moon-glow: rgba(245, 240, 210, 0.5);
+  --code-2: #f5d76e;
+  --text-glow: 0 0 18px rgba(170, 180, 255, 0.12);
+}
+
+/* Dawn (light) — explicit toggle */
+html[data-theme="light"] {
+  --sky-top: #fbe7e0;      /* pale peach dawn */
+  --sky-bottom: #e4ddf6;   /* soft lavender */
+  --bg-soft: #f3ecff;
+  --txt: #312a4a;          /* deep ink — ≥4.5:1 on dawn bg */
+  --muted: #5a5278;
+  --line: rgba(90, 82, 120, 0.22);
+  --accent: #b8860b;       /* deeper gold for contrast on light */
+  --accent-glow: rgba(184, 134, 11, 0.22);
+  --accent-soft: rgba(184, 134, 11, 0.1);
+  --periwinkle: #5b5fa6;   /* dusk blue */
+  --star-color: rgba(120, 110, 160, 0.35);
+  --star-gold: rgba(184, 134, 11, 0.3);
+  --moon-core: #fffdf5;
+  --moon-edge: #f3d9c9;
+  --moon-glow: rgba(255, 226, 196, 0.7);
+  --code-2: #8a4b9c;
+  --text-glow: none;
+}
+
+/* Honor system dark unless the user forced a theme (already night by default,
+   but keep the structure explicit for clarity) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --sky-top: #0d1024;
+    --sky-bottom: #141a3a;
+  }
+}
+
+/* Dark when explicitly toggled (identical to default night look) */
+html[data-theme="dark"] {
+  --sky-top: #0d1024;
+  --sky-bottom: #141a3a;
+  --bg-soft: #1a2046;
+  --txt: #e8e6ff;
+  --muted: #aab4ff;
+  --line: rgba(170, 180, 255, 0.18);
+  --accent: #f5d76e;
+  --accent-glow: rgba(245, 215, 110, 0.35);
+  --accent-soft: rgba(245, 215, 110, 0.12);
+  --periwinkle: #aab4ff;
+  --star-color: rgba(255, 255, 255, 0.9);
+  --star-gold: rgba(245, 215, 110, 0.85);
+  --moon-core: #fff7da;
+  --moon-edge: #d9d2ff;
+  --moon-glow: rgba(245, 240, 210, 0.5);
+  --code-2: #f5d76e;
+  --text-glow: 0 0 18px rgba(170, 180, 255, 0.12);
+}
+
+/* --- Base ----------------------------------------------------------------- */
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-bottom) 100%);
+  background-attachment: fixed;
+  color: var(--txt);
+  font-family: "EB Garamond", Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+  max-width: 64ch;
+  margin: 0 auto;
+  padding: 3.5rem 1.4rem 4rem;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--txt);
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+a:hover {
+  text-shadow: 0 0 10px var(--accent-glow);
+}
+
+h1, h2, h3, h4 {
+  font-family: "EB Garamond", Georgia, serif;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* --- Star field + moon (decorative, fixed, behind content) ---------------- */
+
+.starfield {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  /* Layered radial-gradient "stars": white + gold dots scattered across */
+  background-image:
+    radial-gradient(1.5px 1.5px at 20% 30%, var(--star-color), transparent),
+    radial-gradient(1.5px 1.5px at 75% 18%, var(--star-color), transparent),
+    radial-gradient(2px 2px at 50% 60%, var(--star-gold), transparent),
+    radial-gradient(1px 1px at 12% 75%, var(--star-color), transparent),
+    radial-gradient(1.5px 1.5px at 88% 70%, var(--star-color), transparent),
+    radial-gradient(1px 1px at 35% 12%, var(--star-color), transparent),
+    radial-gradient(2px 2px at 65% 85%, var(--star-gold), transparent),
+    radial-gradient(1px 1px at 5% 45%, var(--star-color), transparent),
+    radial-gradient(1.5px 1.5px at 95% 40%, var(--star-color), transparent),
+    radial-gradient(1px 1px at 45% 92%, var(--star-color), transparent),
+    radial-gradient(1.5px 1.5px at 28% 55%, var(--star-gold), transparent),
+    radial-gradient(1px 1px at 60% 35%, var(--star-color), transparent);
+  background-repeat: no-repeat;
+  animation: twinkle 6s ease-in-out infinite;
+}
+
+/* A second, denser, slower-twinkling layer + a faint shooting-star streak */
+.starfield::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 15% 22%, var(--star-color), transparent),
+    radial-gradient(1px 1px at 42% 48%, var(--star-color), transparent),
+    radial-gradient(1px 1px at 80% 55%, var(--star-color), transparent),
+    radial-gradient(1px 1px at 58% 8%, var(--star-color), transparent),
+    radial-gradient(1px 1px at 90% 88%, var(--star-color), transparent),
+    radial-gradient(1px 1px at 8% 90%, var(--star-color), transparent),
+    radial-gradient(1px 1px at 70% 28%, var(--star-color), transparent),
+    radial-gradient(1px 1px at 32% 78%, var(--star-color), transparent);
+  background-repeat: no-repeat;
+  animation: twinkle 9s ease-in-out infinite reverse;
+}
+
+/* Faint shooting-star streak across the upper sky */
+.starfield::after {
+  content: "";
+  position: absolute;
+  top: 14%;
+  left: -10%;
+  width: 180px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--star-gold), transparent);
+  opacity: 0;
+  transform: rotate(18deg);
+  filter: blur(0.4px);
+  animation: shoot 11s ease-in 3s infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 1; }
+}
+
+@keyframes shoot {
+  0%        { opacity: 0; transform: translate(0, 0) rotate(18deg); }
+  4%        { opacity: 0.9; }
+  12%       { opacity: 0; transform: translate(70vw, 22vh) rotate(18deg); }
+  100%      { opacity: 0; transform: translate(70vw, 22vh) rotate(18deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .starfield,
+  .starfield::before { animation: none; opacity: 0.8; }
+  .starfield::after  { animation: none; opacity: 0; }
+}
+
+/* The moon — a glowing circle beside the brand */
+.moon {
+  position: relative;
+  display: inline-block;
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  background: radial-gradient(circle at 38% 35%, var(--moon-core) 0%, var(--moon-edge) 70%, var(--moon-edge) 100%);
+  box-shadow:
+    0 0 16px 4px var(--moon-glow),
+    0 0 40px 8px var(--moon-glow);
+}
+
+/* Subtle crater shading */
+.moon::before {
+  content: "";
+  position: absolute;
+  top: 28%;
+  left: 55%;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: rgba(120, 110, 160, 0.22);
+  box-shadow:
+    -0.55rem 0.45rem 0 -0.08rem rgba(120, 110, 160, 0.18),
+    0.1rem 0.75rem 0 -0.12rem rgba(120, 110, 160, 0.15);
+}
+
+/* --- Header / masthead ---------------------------------------------------- */
+
+.site-header {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.site-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  position: relative;
+}
+
+.site-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+  color: var(--txt);
+}
+
+.site-brand-text {
+  font-family: "Cinzel", "EB Garamond", serif;
+  font-size: 1.9rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--txt);
+  text-shadow: 0 0 22px var(--accent-glow);
+}
+
+.site-brand:hover .site-brand-text {
+  color: var(--accent);
+}
+
+.site-tagline {
+  font-family: "EB Garamond", serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--muted);
+  margin: 0.6rem 0 0;
+  letter-spacing: 0.02em;
+}
+
+/* Theme toggle — tucked to the right of the centered masthead */
+.theme-toggle {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  width: 2.3rem;
+  height: 2.3rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.theme-toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 14px var(--accent-glow);
+}
+
+.theme-icon {
+  display: none;
+  line-height: 1;
+}
+
+/* default (night) shows the sun icon to "go to dawn" */
+.theme-icon-dark { display: none; }
+.theme-icon-light { display: inline; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-icon-dark { display: none; }
+  :root:not([data-theme="light"]) .theme-icon-light { display: inline; }
+}
+
+html[data-theme="dark"] .theme-icon-dark { display: none; }
+html[data-theme="dark"] .theme-icon-light { display: inline; }
+html[data-theme="light"] .theme-icon-dark { display: inline; }
+html[data-theme="light"] .theme-icon-light { display: none; }
+
+/* --- Navigation ----------------------------------------------------------- */
+
+.site-header nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1.6rem;
+  padding-top: 1.3rem;
+  border-top: 1px solid var(--line);
+  font-family: "EB Garamond", serif;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+}
+
+.site-header nav a {
+  color: var(--muted);
+  text-decoration: none;
+  padding-bottom: 0.15rem;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.site-header nav a:hover {
+  color: var(--accent);
+}
+
+.site-header nav a[aria-current="true"] {
+  color: var(--accent);
+  border-bottom: 1px solid var(--accent);
+  text-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* --- Home: posts list ----------------------------------------------------- */
+
+.all-posts {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.year-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.year-heading {
+  font-family: "Cinzel", serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  margin: 0 0 0.9rem;
+  text-align: center;
+  border: 0;
+  padding: 0;
+}
+
+.posts-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.post-row {
+  padding: 0.6rem 0;
+}
+
+.post-link {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  text-decoration: none;
+  color: var(--txt);
+}
+
+.post-arrow {
+  color: var(--accent);
+  opacity: 0.65;
+  font-size: 1.1rem;
+  transition: opacity 0.2s ease, text-shadow 0.2s ease, transform 0.4s ease;
+}
+
+.post-title {
+  font-family: "EB Garamond", serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+  flex: 1;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.post-meta {
+  font-family: "EB Garamond", serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.post-link:hover .post-title {
+  color: var(--accent);
+  text-shadow: 0 0 12px var(--accent-glow);
+}
+
+.post-link:hover .post-arrow {
+  opacity: 1;
+  text-shadow: 0 0 12px var(--accent-glow);
+  transform: rotate(72deg) scale(1.15);
+}
+
+.post-description {
+  margin: 0.2rem 0 0 1.8rem;
+  color: var(--muted);
+  font-size: 1.02rem;
+  font-style: italic;
+  line-height: 1.6;
+  opacity: 0.92;
+}
+
+/* --- Post page ------------------------------------------------------------ */
+
+.post-back {
+  display: inline-block;
+  font-family: "EB Garamond", serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--muted);
+  text-decoration: none;
+  margin-bottom: 2.5rem;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.post-back:hover {
+  color: var(--accent);
+  text-shadow: 0 0 10px var(--accent-glow);
+}
+
+.post-head {
+  margin-bottom: 2.75rem;
+  text-align: center;
+}
+
+.post-head h1 {
+  margin: 0 0 1rem;
+  font-family: "Cinzel", "EB Garamond", serif;
+  font-size: 2.3rem;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 24px var(--accent-glow);
+}
+
+.post-meta-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  font-family: "EB Garamond", serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+.post-meta-sep {
+  opacity: 0.5;
+}
+
+.post-tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-left: 0.35rem;
+  font-style: normal;
+}
+
+.post-tag {
+  color: var(--accent);
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  padding: 0.12em 0.6em;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--accent-soft);
+}
+
+.draft-badge {
+  display: inline-block;
+  font-family: "EB Garamond", serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  padding: 0.25em 0.55em;
+  border-radius: 4px;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+/* Drop cap on the article's first paragraph */
+.post p:first-of-type::first-letter {
+  font-family: "Cinzel", "EB Garamond", serif;
+  font-weight: 600;
+  float: left;
+  font-size: 3.6rem;
+  line-height: 0.78;
+  padding: 0.18rem 0.55rem 0 0;
+  color: var(--accent);
+  text-shadow: 0 0 18px var(--accent-glow);
+}
+
+.post p,
+.post li {
+  line-height: 1.9;
+}
+
+.post h2,
+.post h3 {
+  margin-top: 2.75rem;
+  font-family: "Cinzel", "EB Garamond", serif;
+  letter-spacing: 0.02em;
+  color: var(--txt);
+}
+
+.post img {
+  max-width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+}
+
+.post blockquote {
+  border-left: 3px solid var(--accent);
+  margin-left: 0;
+  padding-left: 1.2rem;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Ornamental divider between major sections of an article */
+.post hr {
+  border: 0;
+  text-align: center;
+  margin: 3rem 0;
+}
+
+.post hr::before {
+  content: "✦ ❋ ✦";
+  color: var(--accent);
+  letter-spacing: 0.5em;
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+/* --- Code ----------------------------------------------------------------- */
+
+pre {
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  overflow-x: auto;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  font-family: ui-monospace, "JetBrains Mono", "SFMono-Regular", Menlo, monospace;
+}
+
+:not(pre) > code {
+  background: var(--accent-soft);
+  color: var(--code-2);
+  border-radius: 5px;
+  padding: 0.12em 0.4em;
+  font-size: 0.85em;
+  font-family: ui-monospace, "JetBrains Mono", Menlo, monospace;
+}
+
+/* Syntax highlighting (highlight.js) — celestial palette */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-section,
+.hljs-link { color: #c9a0ff; }
+
+.hljs-string,
+.hljs-attribute,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition,
+.hljs-template-tag { color: #9fe3c5; }
+
+.hljs-title,
+.hljs-name,
+.hljs-function .hljs-title,
+.hljs-type { color: var(--periwinkle); }
+
+.hljs-variable,
+.hljs-template-variable,
+.hljs-attr,
+.hljs-property { color: #8fd8ff; }
+
+.hljs-number,
+.hljs-regexp,
+.hljs-literal { color: var(--accent); }
+
+.hljs-built_in,
+.hljs-class .hljs-title,
+.hljs-params { color: #ffb6c1; }
+
+.hljs-comment,
+.hljs-quote,
+.hljs-deletion,
+.hljs-meta { color: var(--muted); font-style: italic; opacity: 0.75; }
+
+/* --- Footer --------------------------------------------------------------- */
+
+.site-footer {
+  margin-top: 5rem;
+  padding-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: "EB Garamond", serif;
+  font-size: 0.95rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.footer-divider {
+  color: var(--accent);
+  letter-spacing: 0.5em;
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.footer-copy {
+  font-style: italic;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-links a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: var(--accent);
+  text-shadow: 0 0 10px var(--accent-glow);
+}
+
+/* --- Responsive ----------------------------------------------------------- */
+
+@media (max-width: 540px) {
+  body { font-size: 17px; }
+
+  .page {
+    padding: 2.5rem 1.1rem 3rem;
+  }
+
+  .site-brand-text { font-size: 1.45rem; }
+
+  .theme-toggle {
+    position: static;
+    transform: none;
+  }
+
+  .site-bar { gap: 0.6rem; }
+
+  .post-head h1 { font-size: 1.8rem; }
+
+  .post-link {
+    flex-wrap: wrap;
+  }
+
+  .post-meta {
+    margin-left: 1.8rem;
+  }
+}

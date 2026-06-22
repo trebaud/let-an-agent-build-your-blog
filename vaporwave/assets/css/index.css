@@ -1,0 +1,836 @@
+/* ==========================================================================
+   AGENTWAVE — Vaporwave / synthwave (80s retro-future) theme
+   - DARK is the default look: neon-on-deep-purple, sunset gradient + grid horizon
+   - LIGHT toggle is a pastel "daytime Miami" variant (sunlit, still readable)
+   - Self-contained: no bamboo.css. Fonts via Google Fonts (loaded in layout head).
+   - Token structure: :root (= dark default) / html[data-theme="light"] /
+     @media(prefers-color-scheme:dark) / html[data-theme="dark"]
+   ========================================================================== */
+
+/* --- Design tokens -------------------------------------------------------- */
+
+/* :root renders the DARK neon look by default so first paint is on-brand. */
+:root,
+html[data-theme="dark"] {
+  --bg: #1a1033;
+  --bg-soft: #241447;
+  --bg-elev: #2c1858;
+  --txt: #e8e0ff;
+  --muted: #b0a3d6;
+  --line: rgba(185, 103, 255, 0.32);
+  --line-strong: #b967ff;
+
+  /* neon palette */
+  --pink: #ff71ce;
+  --cyan: #01cdfe;
+  --lavender: #b967ff;
+  --mint: #05ffa1;
+  --yellow: #fffb96;
+
+  --accent: var(--cyan);
+  --accent-2: var(--pink);
+  --accent-soft: rgba(1, 205, 254, 0.14);
+
+  /* sunset gradient behind the header */
+  --sunset: linear-gradient(180deg, #ff71ce 0%, #b967ff 48%, #2a1456 100%);
+  --grid-line: rgba(255, 113, 206, 0.55);
+  --grid-glow: rgba(1, 205, 254, 0.35);
+  --sky-glow: radial-gradient(
+    120% 80% at 50% 0%,
+    rgba(255, 113, 206, 0.22) 0%,
+    rgba(185, 103, 255, 0.12) 35%,
+    transparent 70%
+  );
+
+  /* glows */
+  --glow-cyan: 0 0 8px rgba(1, 205, 254, 0.7), 0 0 18px rgba(1, 205, 254, 0.35);
+  --glow-pink: 0 0 8px rgba(255, 113, 206, 0.7), 0 0 18px rgba(255, 113, 206, 0.35);
+
+  --code-bg: rgba(13, 6, 36, 0.7);
+  --code-txt: #f6efff;
+  --inline-code: var(--mint);
+
+  /* syntax */
+  --hl-red: #ff71ce;
+  --hl-green: #05ffa1;
+  --hl-yellow: #fffb96;
+  --hl-blue: #01cdfe;
+  --hl-cyan: #7df9ff;
+  --hl-magenta: #b967ff;
+  --hl-comment: #8e7ec4;
+
+  --shadow-shape: rgba(0, 0, 0, 0.45);
+  color-scheme: dark;
+}
+
+/* When the OS prefers dark and the user hasn't forced light, keep dark tokens.
+   (:root already IS dark, so this block simply guards against light overrides
+   being needed — kept for the documented token structure.) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1a1033;
+    --bg-soft: #241447;
+  }
+}
+
+/* LIGHT — "daytime Miami": pastel cream/peach, sunlit, darker text for contrast */
+html[data-theme="light"] {
+  --bg: #fff4ea;
+  --bg-soft: #ffe7f2;
+  --bg-elev: #ffffff;
+  --txt: #3a1f52;          /* deep plum text on cream → strong contrast */
+  --muted: #8a5a8f;
+  --line: rgba(214, 51, 132, 0.28);
+  --line-strong: #d63384;
+
+  --pink: #ff4fb0;
+  --cyan: #009fc4;
+  --lavender: #9b4dff;
+  --mint: #0aa06e;
+  --yellow: #d39a00;
+
+  --accent: #c0267a;       /* dark pink/magenta — readable as link color */
+  --accent-2: #009fc4;
+  --accent-soft: rgba(192, 38, 122, 0.1);
+
+  --sunset: linear-gradient(180deg, #ffd1e8 0%, #ffc4e0 45%, #c9f0ff 100%);
+  --grid-line: rgba(255, 79, 176, 0.5);
+  --grid-glow: rgba(0, 159, 196, 0.28);
+  --sky-glow: radial-gradient(
+    120% 80% at 50% 0%,
+    rgba(255, 169, 213, 0.45) 0%,
+    rgba(201, 240, 255, 0.3) 40%,
+    transparent 72%
+  );
+
+  --glow-cyan: 0 0 6px rgba(0, 159, 196, 0.35);
+  --glow-pink: 0 0 6px rgba(255, 79, 176, 0.35);
+
+  --code-bg: #fff;
+  --code-txt: #4a2a5e;
+  --inline-code: #0aa06e;
+
+  --hl-red: #d63384;
+  --hl-green: #0a8a5f;
+  --hl-yellow: #b07d00;
+  --hl-blue: #0077a3;
+  --hl-cyan: #0a8aa3;
+  --hl-magenta: #8a3ddb;
+  --hl-comment: #9a7fb0;
+
+  --shadow-shape: rgba(123, 31, 162, 0.18);
+  color-scheme: light;
+}
+
+/* --- Base layout ---------------------------------------------------------- */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  position: relative;
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 5rem;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--txt);
+  font-family: "Rajdhani", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1.12rem;
+  font-weight: 400;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ===== Signature visual: fixed background sky + grid horizon ============== */
+.vapor-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  background: var(--bg);
+  pointer-events: none;
+}
+
+/* sky glow at the top */
+.vapor-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--sky-glow);
+}
+
+/* The retro perspective grid receding to a horizon at the bottom. */
+.vapor-grid {
+  position: absolute;
+  left: -50%;
+  right: -50%;
+  bottom: 0;
+  height: 55vh;
+  background-image:
+    repeating-linear-gradient(
+      to right,
+      transparent 0,
+      transparent calc(2.5% - 1px),
+      var(--grid-line) calc(2.5% - 1px),
+      var(--grid-line) 2.5%
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(7% - 1px),
+      var(--grid-line) calc(7% - 1px),
+      var(--grid-line) 7%
+    );
+  transform: perspective(38vh) rotateX(72deg);
+  transform-origin: bottom center;
+  filter: drop-shadow(0 0 6px var(--grid-glow));
+  -webkit-mask-image: linear-gradient(to top, #000 35%, transparent 100%);
+  mask-image: linear-gradient(to top, #000 35%, transparent 100%);
+  opacity: 0.85;
+}
+
+/* glow band at the horizon line */
+.vapor-bg::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 55vh;
+  height: 2px;
+  background: var(--line-strong);
+  box-shadow: 0 0 14px 2px var(--grid-glow), 0 0 30px var(--accent-2);
+  opacity: 0.7;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* keep it static & performant — no animation by default */
+}
+
+::selection {
+  background: var(--accent-2);
+  color: #15082b;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease, text-shadow 0.15s ease;
+}
+
+a:hover {
+  text-shadow: var(--glow-cyan);
+}
+
+/* --- Header --------------------------------------------------------------- */
+
+.site-header {
+  position: relative;
+  margin-bottom: 3.5rem;
+  padding: 2.75rem 1.5rem 1.75rem;
+  border-radius: 16px;
+  overflow: hidden;
+  background:
+    var(--sky-glow),
+    var(--bg-soft);
+  border: 1px solid var(--line);
+  box-shadow: 0 0 0 1px rgba(255, 113, 206, 0.08),
+    0 18px 50px -20px rgba(185, 103, 255, 0.5);
+}
+
+/* sunset gradient wash behind the title */
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--sunset);
+  opacity: 0.16;
+  z-index: 0;
+}
+
+.site-bar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* The classic synthwave SUN behind the title, with cutout stripes on its
+   lower half. Sits behind the brand text. */
+.vapor-sun {
+  position: relative;
+  display: inline-block;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  flex: none;
+  background: linear-gradient(180deg, #fffb96 0%, #ff8fd0 55%, #ff71ce 100%);
+  box-shadow: 0 0 18px rgba(255, 143, 208, 0.8), 0 0 42px rgba(255, 113, 206, 0.45);
+}
+
+/* horizontal cutout stripes across the sun's lower half */
+.vapor-sun::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 50%;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 2px,
+    var(--bg-soft) 2px,
+    var(--bg-soft) 4px
+  );
+}
+
+html[data-theme="light"] .vapor-sun {
+  background: linear-gradient(180deg, #ffe27a 0%, #ff9ad1 60%, #ff4fb0 100%);
+}
+
+.site-brand {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+}
+
+.site-brand-text {
+  font-family: "Monoton", "Orbitron", system-ui, sans-serif;
+  font-size: clamp(1.5rem, 4.5vw, 2.4rem);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  line-height: 1.05;
+  background: linear-gradient(180deg, #fffb96 0%, var(--pink) 55%, var(--cyan) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--pink); /* fallback */
+  filter: drop-shadow(0 0 10px rgba(255, 113, 206, 0.6))
+    drop-shadow(0 0 20px rgba(1, 205, 254, 0.3));
+}
+
+html[data-theme="light"] .site-brand-text {
+  background: linear-gradient(180deg, #ff8fc8 0%, #c0267a 60%, #009fc4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0 4px rgba(255, 79, 176, 0.35));
+}
+
+.site-tagline {
+  position: relative;
+  z-index: 2;
+  font-family: "Rajdhani", monospace;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin: 0.6rem 0 0;
+  text-shadow: 0 0 8px rgba(185, 103, 255, 0.3);
+}
+
+/* Theme toggle as a neon button */
+.theme-toggle {
+  position: relative;
+  z-index: 2;
+  background: rgba(1, 205, 254, 0.06);
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  width: 2.4rem;
+  height: 2.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  color: var(--accent);
+  cursor: pointer;
+  padding: 0;
+  box-shadow: var(--glow-cyan);
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease,
+    box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.theme-toggle:hover {
+  color: var(--accent-2);
+  border-color: var(--accent-2);
+  background: rgba(255, 113, 206, 0.1);
+  box-shadow: var(--glow-pink);
+  transform: translateY(-1px);
+}
+
+.theme-icon {
+  display: none;
+  line-height: 1;
+}
+
+.theme-icon-dark { display: inline; }
+.theme-icon-light { display: none; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-icon-dark { display: none; }
+  :root:not([data-theme="light"]) .theme-icon-light { display: inline; }
+}
+
+html[data-theme="dark"] .theme-icon-dark { display: none; }
+html[data-theme="dark"] .theme-icon-light { display: inline; }
+html[data-theme="light"] .theme-icon-dark { display: inline; }
+html[data-theme="light"] .theme-icon-light { display: none; }
+
+/* --- Navigation: neon pills ----------------------------------------------- */
+
+.site-header nav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: 0.85rem;
+  margin-top: 1.5rem;
+  padding-top: 1.4rem;
+  border-top: 1px solid var(--line);
+  font-family: "Rajdhani", monospace;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.site-header nav a {
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease,
+    background 0.15s ease, text-shadow 0.15s ease;
+}
+
+.site-header nav a:hover {
+  color: var(--cyan);
+  border-color: var(--cyan);
+  box-shadow: var(--glow-cyan);
+  text-shadow: none;
+}
+
+.site-header nav a[aria-current="true"] {
+  color: var(--bg);
+  background: var(--accent-2);
+  border-color: var(--accent-2);
+  box-shadow: var(--glow-pink);
+}
+
+html[data-theme="light"] .site-header nav a[aria-current="true"] {
+  color: #fff;
+}
+
+/* --- Home: posts list ----------------------------------------------------- */
+
+.all-posts {
+  display: flex;
+  flex-direction: column;
+  gap: 2.75rem;
+}
+
+.year-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.year-heading {
+  font-family: "Audiowide", "Orbitron", monospace;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  color: var(--lavender);
+  margin: 0 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  border: 0;
+  padding: 0;
+  text-shadow: 0 0 10px rgba(185, 103, 255, 0.6);
+}
+
+.year-heading::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--line-strong), transparent);
+  box-shadow: 0 0 6px var(--grid-glow);
+}
+
+.posts-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.post-row {
+  padding: 0.7rem 0.6rem;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  transition: border-color 0.18s ease, background 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.post-row:hover {
+  border-color: var(--line);
+  background: rgba(185, 103, 255, 0.06);
+  box-shadow: inset 0 0 18px rgba(1, 205, 254, 0.06);
+}
+
+.post-link {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  text-decoration: none;
+  color: var(--txt);
+}
+
+.post-link:hover {
+  text-shadow: none;
+}
+
+.post-arrow {
+  color: var(--accent-2);
+  font-size: 0.9em;
+  transition: transform 0.18s ease, color 0.18s ease, text-shadow 0.18s ease;
+}
+
+.post-title {
+  font-weight: 600;
+  font-size: 1.08rem;
+  letter-spacing: 0.01em;
+  flex: 1;
+  transition: color 0.18s ease, text-shadow 0.18s ease;
+}
+
+.post-meta {
+  font-family: "Rajdhani", monospace;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.post-link:hover .post-title {
+  color: var(--cyan);
+  text-shadow: var(--glow-cyan);
+}
+
+.post-link:hover .post-arrow {
+  color: var(--cyan);
+  transform: translateX(5px);
+  text-shadow: var(--glow-cyan);
+}
+
+.post-description {
+  margin: 0.3rem 0 0 1.7rem;
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+/* --- Post page ------------------------------------------------------------ */
+
+.post-back {
+  display: inline-block;
+  font-family: "Rajdhani", monospace;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  text-decoration: none;
+  margin-bottom: 2rem;
+  transition: color 0.15s ease, text-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.post-back:hover {
+  color: var(--accent-2);
+  text-shadow: var(--glow-pink);
+  transform: translateX(-3px);
+}
+
+.post-head {
+  margin-bottom: 2.5rem;
+}
+
+.post-head h1 {
+  font-family: "Audiowide", "Orbitron", system-ui, sans-serif;
+  font-weight: 400;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  margin: 0 0 1rem;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  color: var(--txt);
+  text-shadow: 0 0 12px rgba(255, 113, 206, 0.45),
+    0 0 24px rgba(1, 205, 254, 0.2);
+}
+
+.post-meta-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-family: "Rajdhani", monospace;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  text-shadow: 0 0 6px rgba(185, 103, 255, 0.25);
+}
+
+.post-meta-sep {
+  opacity: 0.5;
+  color: var(--accent-2);
+}
+
+.post-tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-left: 0.35rem;
+}
+
+/* neon-outlined chips */
+.post-tag {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--cyan);
+  padding: 0.12em 0.6em;
+  border: 1px solid var(--cyan);
+  border-radius: 999px;
+  box-shadow: 0 0 8px rgba(1, 205, 254, 0.25);
+  text-shadow: none;
+}
+
+.post-tag:nth-child(even) {
+  color: var(--pink);
+  border-color: var(--pink);
+  box-shadow: 0 0 8px rgba(255, 113, 206, 0.25);
+}
+
+.draft-badge {
+  display: inline-block;
+  font-family: "Rajdhani", monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  padding: 0.25em 0.55em;
+  border-radius: 5px;
+  color: var(--yellow);
+  border: 1px solid var(--yellow);
+  box-shadow: 0 0 8px rgba(255, 251, 150, 0.3);
+}
+
+/* article body — readable, NOT glowing */
+.post {
+  font-size: 1.12rem;
+}
+
+.post p,
+.post li {
+  line-height: 1.8;
+  color: var(--txt);
+}
+
+.post h2,
+.post h3 {
+  font-family: "Orbitron", system-ui, sans-serif;
+  font-weight: 600;
+  margin-top: 2.6rem;
+  letter-spacing: 0.01em;
+  color: var(--lavender);
+  text-shadow: 0 0 10px rgba(185, 103, 255, 0.4);
+}
+
+html[data-theme="light"] .post h2,
+html[data-theme="light"] .post h3 {
+  color: var(--accent);
+  text-shadow: none;
+}
+
+.post a {
+  font-weight: 600;
+}
+
+.post img {
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  box-shadow: 0 0 24px -6px rgba(185, 103, 255, 0.5);
+  max-width: 100%;
+  height: auto;
+}
+
+.post blockquote {
+  border-left: 3px solid var(--accent-2);
+  padding-left: 1rem;
+  margin-left: 0;
+  color: var(--muted);
+  font-style: normal;
+  box-shadow: -3px 0 12px -4px var(--accent-2);
+}
+
+.post hr {
+  border: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--line-strong), transparent);
+}
+
+/* --- Code ----------------------------------------------------------------- */
+
+pre,
+code {
+  font-family: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Monaco,
+    Consolas, monospace;
+}
+
+pre {
+  background: var(--code-bg);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--code-txt);
+  overflow-x: auto;
+  box-shadow: inset 0 0 30px rgba(1, 205, 254, 0.05),
+    0 0 0 1px rgba(255, 113, 206, 0.06);
+}
+
+:not(pre) > code {
+  background: var(--accent-soft);
+  color: var(--inline-code);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.12em 0.45em;
+  font-size: 0.88em;
+}
+
+/* Syntax highlighting (highlight.js) */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-section,
+.hljs-link { color: var(--hl-magenta); }
+
+.hljs-string,
+.hljs-attribute,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition,
+.hljs-template-tag { color: var(--hl-green); }
+
+.hljs-title,
+.hljs-name,
+.hljs-function .hljs-title,
+.hljs-type { color: var(--hl-blue); }
+
+.hljs-variable,
+.hljs-template-variable,
+.hljs-attr,
+.hljs-property { color: var(--hl-cyan); }
+
+.hljs-number,
+.hljs-regexp,
+.hljs-literal { color: var(--hl-yellow); }
+
+.hljs-built_in,
+.hljs-class .hljs-title,
+.hljs-params { color: var(--hl-red); }
+
+.hljs-comment,
+.hljs-quote,
+.hljs-deletion,
+.hljs-meta { color: var(--hl-comment); font-style: italic; }
+
+/* --- Footer: sits on the grid horizon ------------------------------------- */
+
+.site-footer {
+  position: relative;
+  margin-top: 5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  font-family: "Rajdhani", monospace;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.site-footer::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--accent-2), transparent);
+  box-shadow: 0 0 10px var(--accent-2);
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.footer-links a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s ease, text-shadow 0.15s ease;
+}
+
+.footer-links a:hover {
+  color: var(--cyan);
+  text-shadow: var(--glow-cyan);
+}
+
+/* --- Responsive ----------------------------------------------------------- */
+
+@media (max-width: 540px) {
+  body {
+    padding: 1.75rem 1.1rem 4rem;
+    font-size: 1.05rem;
+  }
+
+  .site-header {
+    padding: 2rem 1.1rem 1.4rem;
+  }
+
+  .post-link {
+    flex-wrap: wrap;
+  }
+
+  .post-meta {
+    margin-left: 1.7rem;
+  }
+
+  .site-header nav {
+    flex-wrap: wrap;
+  }
+}

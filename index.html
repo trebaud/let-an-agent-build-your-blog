@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Theme gallery — Let an agent build your blog</title>
+    <meta
+      name="description"
+      content="Live demos of eight themes built by the customize skill from the same content — terminal, minimal, editorial, personal, retro, notebook, vaporwave, and cosmic." />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%E2%9C%A6</text></svg>" />
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #0d1117;
+        --fg: #e6edf3;
+        --muted: #9aa5b1;
+        --card: #161b22;
+        --border: #30363d;
+        --accent: #7aa2f7;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font: 16px/1.6 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        background: var(--bg);
+        color: var(--fg);
+      }
+      .wrap { max-width: 1100px; margin: 0 auto; padding: 4rem 1.25rem 5rem; }
+      header { margin-bottom: 2.5rem; }
+      h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 0 0 0.5rem; letter-spacing: -0.02em; }
+      .lede { color: var(--muted); max-width: 65ch; margin: 0; }
+      .lede a { color: var(--accent); }
+      h2.section { font-size: 1.05rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 2.75rem 0 1rem; font-weight: 700; }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 1.5rem;
+      }
+      .card {
+        display: flex;
+        flex-direction: column;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+        text-decoration: none;
+        color: inherit;
+        transition: transform 0.15s ease, border-color 0.15s ease;
+      }
+      .card:hover { transform: translateY(-3px); border-color: var(--accent); }
+      .card img { width: 100%; display: block; border-bottom: 1px solid var(--border); background: #000; }
+      .card .body { padding: 1rem 1.15rem 1.25rem; }
+      .card h3 { margin: 0 0 0.3rem; font-size: 1.12rem; }
+      .card p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+      .card .cta { margin-top: 0.75rem; color: var(--accent); font-weight: 600; font-size: 0.88rem; }
+      footer { margin-top: 3.5rem; color: var(--muted); font-size: 0.88rem; }
+      footer a { color: var(--accent); }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <h1>Theme gallery</h1>
+        <p class="lede">
+          Eight themes, each built by the <strong>customize</strong> skill from the
+          <em>same content</em> — only <code>site/</code> changed. The first four are practical
+          starting points; the next four push the presentation layer into more whimsical
+          territory. Click any card for the live demo. Source on
+          <a href="https://github.com/trebaud/let-an-agent-build-your-blog">GitHub</a>.
+        </p>
+      </header>
+
+      <main>
+        <h2 class="section">Practical</h2>
+        <div class="grid">
+          <a class="card" href="./terminal/">
+            <img src="./previews/terminal.gif" alt="Terminal theme demo" loading="lazy" />
+            <div class="body">
+              <h3>Terminal / dev</h3>
+              <p>Monospace Tokyo-Night palette with a <code>brand@host</code> header. The default.</p>
+              <div class="cta">View live demo →</div>
+            </div>
+          </a>
+          <a class="card" href="./minimal/">
+            <img src="./previews/minimal.gif" alt="Minimal theme demo" loading="lazy" />
+            <div class="body">
+              <h3>Minimal / typographic</h3>
+              <p>One centered serif column on cream paper, generous whitespace, content first.</p>
+              <div class="cta">View live demo →</div>
+            </div>
+          </a>
+          <a class="card" href="./editorial/">
+            <img src="./previews/editorial.gif" alt="Editorial theme demo" loading="lazy" />
+            <div class="body">
+              <h3>Editorial / magazine</h3>
+              <p>A bold masthead and a responsive card grid with category kickers and an accent rule.</p>
+              <div class="cta">View live demo →</div>
+            </div>
+          </a>
+          <a class="card" href="./personal/">
+            <img src="./previews/personal.gif" alt="Personal landing theme demo" loading="lazy" />
+            <div class="body">
+              <h3>Personal landing</h3>
+              <p>A centered hero with avatar, tagline, and social links over a compact post list.</p>
+              <div class="cta">View live demo →</div>
+            </div>
+          </a>
+        </div>
+
+        <h2 class="section">Whimsical</h2>
+        <div class="grid">
+          <a class="card" href="./retro/">
+            <img src="./previews/retro.gif" alt="Retro 90s theme demo" loading="lazy" />
+            <div class="body">
+              <h3>Retro 90s web</h3>
+              <p>A Web 1.0 fever dream: tiled wallpaper, a Windows-95 window, a marquee, and a visitor counter.</p>
+              <div class="cta">View live demo →</div>
+            </div>
+          </a>
+          <a class="card" href="./notebook/">
+            <img src="./previews/notebook.gif" alt="Hand-drawn notebook theme demo" loading="lazy" />
+            <div class="body">
+              <h3>Hand-drawn notebook</h3>
+              <p>Marker-on-paper: a ruled cream page, handwriting fonts, doodle borders, and a checklist post list.</p>
+              <div class="cta">View live demo →</div>
+            </div>
+          </a>
+          <a class="card" href="./vaporwave/">
+            <img src="./previews/vaporwave.gif" alt="Vaporwave theme demo" loading="lazy" />
+            <div class="body">
+              <h3>Vaporwave / synthwave</h3>
+              <p>80s retro-future: a glowing chrome title over a synthwave sun and a neon grid horizon.</p>
+              <div class="cta">View live demo →</div>
+            </div>
+          </a>
+          <a class="card" href="./cosmic/">
+            <img src="./previews/cosmic.gif" alt="Cosmic storybook theme demo" loading="lazy" />
+            <div class="body">
+              <h3>Cosmic storybook</h3>
+              <p>A dreamy night sky: a twinkling star field, a glowing moon, and a gold drop-cap serif.</p>
+              <div class="cta">View live demo →</div>
+            </div>
+          </a>
+        </div>
+      </main>
+
+      <footer>
+        Built with a typed Bun + TypeScript static site generator.
+        Each theme is the diff of a single <code>git</code> branch against <code>main</code> —
+        nothing in <code>content/</code> or <code>core/</code> changed.
+      </footer>
+    </div>
+  </body>
+</html>

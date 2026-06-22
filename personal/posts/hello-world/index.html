@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hello, world | Ada Quill</title>
+    <meta name="description" content="Your first post — and a tour of what's in the box." />
+    <meta name="author" content="Ada Quill" />
+    <link rel="canonical" href="https://trebaud.github.io/let-an-agent-build-your-blog/personal/posts/hello-world" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Hello, world | Ada Quill" />
+    <meta property="og:description" content="Your first post — and a tour of what's in the box." />
+    <meta property="og:url" content="https://trebaud.github.io/let-an-agent-build-your-blog/personal/posts/hello-world" />
+    <meta property="og:site_name" content="Ada Quill" />
+    <meta property="article:published_time" content="2026-01-10T09:00:00.000Z" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Hello, world | Ada Quill" />
+    <meta name="twitter:description" content="Your first post — and a tour of what's in the box." />
+
+    <!-- Feeds -->
+    <link rel="alternate" type="application/rss+xml" title="Ada Quill" href="https://trebaud.github.io/let-an-agent-build-your-blog/personal/feed.xml" />
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦊</text></svg>">
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t === "dark" || t === "light") document.documentElement.dataset.theme = t;
+        } catch (e) {}
+      })();
+    </script>
+    <link rel="stylesheet" href="https://unpkg.com/bamboo.css">
+    <link rel="stylesheet" href="/let-an-agent-build-your-blog/personal/assets/css/index.css">
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Hello, world","description":"Your first post — and a tour of what's in the box.","url":"https://trebaud.github.io/let-an-agent-build-your-blog/personal/posts/hello-world","datePublished":"2026-01-10T09:00:00.000Z","author":{"@type":"Person","name":"Ada Quill","url":"https://trebaud.github.io/let-an-agent-build-your-blog/personal"},"publisher":{"@type":"Person","name":"Ada Quill","url":"https://trebaud.github.io/let-an-agent-build-your-blog/personal"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://trebaud.github.io/let-an-agent-build-your-blog/personal/posts/hello-world"}}</script>
+    
+  </head>
+  <body>
+    <header class="site-header">
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle color theme">
+        <span class="theme-icon theme-icon-dark">◑</span>
+        <span class="theme-icon theme-icon-light">◐</span>
+      </button>
+      <a href="/let-an-agent-build-your-blog/personal/" class="site-avatar">🦊</a>
+      <a href="/let-an-agent-build-your-blog/personal/" class="site-brand">Ada Quill</a>
+      <p class="site-tagline">Engineer and writer. I build small, sharp tools and write about how they're made.</p>
+      <div class="hero-socials">
+        <a href="https://github.com/your-handle/let-an-agent-build-your-blog">github</a><a href="https://example.com">mastodon</a><a href="/let-an-agent-build-your-blog/personal/feed.xml">rss</a>
+      </div>
+      <nav><a href="/let-an-agent-build-your-blog/personal/" aria-current=false>Home</a> <a href="/let-an-agent-build-your-blog/personal/about" aria-current=false>About</a></nav>
+    </header>
+    <main>
+      <a href="/let-an-agent-build-your-blog/personal/" class="post-back">← back</a>
+<article class="post">
+  <header class="post-head">
+    <h1>Hello, world</h1>
+    <div class="post-meta-line">
+    
+    <time>January 10, 2026</time>
+    <span class="post-meta-sep">·</span>
+    <span>2 min read</span>
+    <span class="post-tags"><span class="post-tag">#meta</span><span class="post-tag">#getting-started</span></span>
+  </div>
+  </header>
+  <p>Welcome to your new site. If you can read this, the build engine parsed this file&#39;s
+frontmatter, rendered the Markdown below into HTML, and a component wrapped it in a layout —
+all without you writing any HTML.</p>
+<h2>Where things live</h2>
+<pre><code>content/   what you write — posts, pages, images   (the contract)
+core/       the build engine — parses content, renders the site
+site/      how it looks — layout, styles, branding  (yours to change)
+</code></pre><p>To publish a new post, drop a Markdown file in <code>content/posts/</code>. The filename becomes the
+URL slug, so <code>content/posts/hello-world.md</code> is served at <code>/posts/hello-world/</code>.</p>
+<h2>Frontmatter</h2>
+<p>Every post starts with a small block of typed metadata:</p>
+<pre><code class="language-yaml"><span class="hljs-meta">---</span>
+<span class="hljs-attr">title:</span> <span class="hljs-string">&quot;Hello, world&quot;</span>        <span class="hljs-comment"># required</span>
+<span class="hljs-attr">description:</span> <span class="hljs-string">&quot;One-liner&quot;</span>     <span class="hljs-comment"># optional — used for SEO, the listing, and RSS</span>
+<span class="hljs-attr">date:</span> <span class="hljs-number">2026-01-10T09:00:00Z</span>   <span class="hljs-comment"># required — drives sorting and the year grouping</span>
+<span class="hljs-attr">tags:</span> [<span class="hljs-string">meta</span>, <span class="hljs-string">getting-started</span>]
+<span class="hljs-attr">draft:</span> <span class="hljs-literal">false</span>                 <span class="hljs-comment"># drafts are hidden in production builds</span>
+<span class="hljs-meta">---</span>
+</code></pre><p>That&#39;s the whole contract. Get it wrong and the build tells you — see
+<a href="/let-an-agent-build-your-blog/personal/posts/content-as-contract/">Content is a contract</a>.</p>
+<h2>Code, with highlighting</h2>
+<p>Fenced code blocks are syntax-highlighted automatically; just name the language:</p>
+<pre><code class="language-ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">Post</span> = {
+  <span class="hljs-attr">meta</span>: <span class="hljs-title class_">PostMeta</span>
+  <span class="hljs-attr">slug</span>: <span class="hljs-built_in">string</span>
+  <span class="hljs-attr">html</span>: <span class="hljs-built_in">string</span>
+}
+</code></pre><p>Now go change <code>content/pages/about.md</code>, then read the other two starter posts and delete
+all three when you&#39;re ready to make this site your own.</p>
+
+</article>
+    </main>
+    <footer class="site-footer">
+      <span class="footer-copy">© 2026 Ada Quill</span>
+      <span class="footer-links">
+        <a href="https://github.com/your-handle/let-an-agent-build-your-blog">github</a><a href="https://example.com">mastodon</a><a href="/let-an-agent-build-your-blog/personal/feed.xml">rss</a>
+      </span>
+    </footer>
+    <script>
+      (function () {
+        var btn = document.getElementById("theme-toggle");
+        if (!btn) return;
+        btn.addEventListener("click", function () {
+          var current =
+            document.documentElement.dataset.theme ||
+            (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+          var next = current === "dark" ? "light" : "dark";
+          document.documentElement.dataset.theme = next;
+          try { localStorage.setItem("theme", next); } catch (e) {}
+        });
+      })();
+    </script>
+  </body>
+</html>

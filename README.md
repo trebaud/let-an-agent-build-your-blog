@@ -14,6 +14,41 @@ No Liquid, no Handlebars, no JSX runtime — a component is just a function that
 content and returns an HTML string. That makes the whole presentation layer trivial for an
 agent to rewrite.
 
+
+## Quick start
+
+
+```bash
+git clone https://github.com/trebaud/let-an-agent-build-your-blog.git
+bun install
+bun dev   # build + watch + serve at http://localhost:3000 (drafts included)
+```
+
+### Customize
+
+1. Set `BASE_URL`, `AUTHOR`, title, nav, and socials in `site/site.config.ts`.
+2. Add Markdown to `content/posts/` (frontmatter contract in `content/README.md`).
+3. Restyle by asking an agent with the **customize** skill.
+
+The repo ships an agent skill at
+[`.claude/skills/customize/`](.claude/skills/customize/SKILL.md). Instead of hand-editing CSS
+and components, describe the outcome and let the **customize** skill drive it:
+
+> "Make it a warm sepia theme with a serif body font and a centered single-column layout. Use /customize."
+
+> "Turn the post listing into a dense table and add a projects page to the nav."
+
+The skill interviews you to pin down the design, edits `site/` **only**
+
+### Build & deploy
+
+```bash
+bun run build      # generates the site into public/
+```
+
+Deploy the `public` build ouput to any static host (Netlify, Cloudflare Pages, GitHub
+Pages, S3, Nginx…).
+
 ## Architecture
 
 Three layers, one rule: **content and design never touch each other.**
@@ -25,18 +60,6 @@ site/      The theme — everything the site looks like. Yours to rewrite.
 
 content/  →  core/ (parse)  →  site/ (render)  →  public/
 ```
-
-## Workflow: let an agent do the theming
-
-The repo ships an agent skill at
-[`.claude/skills/customize/`](.claude/skills/customize/SKILL.md). Instead of hand-editing CSS
-and components, describe the outcome and let the **customize** skill drive it:
-
-> "Make it a warm sepia theme with a serif body font and a centered single-column layout."
-
-> "Turn the post listing into a dense table and add a projects page to the nav."
-
-The skill interviews you to pin down the design, edits `site/` **only**
 
 ## Theme gallery
 
@@ -69,9 +92,6 @@ A centered hero with avatar, tagline, and social links over a compact post list.
 
 ![Personal landing theme: centered hero with avatar and social pills, opening a post, then a mint dark mode](docs/themes/personal.gif)
 
----
-
-The next four lean into personality — same content, same engine, wildly different worlds.
 
 ### Retro 90s web — [`theme/retro`](../../tree/theme/retro)
 
@@ -105,28 +125,6 @@ Each theme is the diff of a single `git` branch against `main` — `site/styles/
 `site/site.config.ts`, and (for the editorial/personal layouts) a component or two. Nothing
 in `content/` or `core/` changed.
 
-## Quick start
-
-```bash
-bun install
-bun dev   # build + watch + serve at http://localhost:3000 (drafts included)
-```
-
-Then:
-
-1. Set `BASE_URL`, `AUTHOR`, title, nav, and socials in `site/site.config.ts`.
-2. Add Markdown to `content/posts/` (frontmatter contract in `content/README.md`).
-3. Restyle by asking an agent (the **customize** skill) — or edit `site/` by hand.
-
-## Build & deploy
-
-```bash
-bun run build      # generates the site into public/
-bun run typecheck  # tsc --noEmit — validates the content/design contract
-```
-
-Deploy the `public` build ouput to any static host (Netlify, Cloudflare Pages, GitHub
-Pages, S3, Nginx…).
 
 ## License
 

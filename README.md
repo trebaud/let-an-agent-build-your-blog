@@ -49,14 +49,12 @@ and components, describe the outcome and let the **customize** skill drive it:
 
 > "Turn the post listing into a dense table and add a projects page to the nav."
 
-The skill interviews you to pin down the design, edits `site/` **only**, then runs
-`bun run build` and `bun run typecheck` to prove the content contract still holds. That
-guardrail is what makes "let an agent redesign it" safe to say.
+The skill interviews you to pin down the design, edits `site/` **only**
 
 ## Theme gallery
 
 Four themes, each built by the **customize** skill from the same content, each living on its
-own branch. The clips below show the home listing, a post, and the light/dark toggle.
+own branch.
 
 ### Terminal / dev — the default
 
@@ -91,7 +89,7 @@ in `content/` or `core/` changed.
 
 ```bash
 bun install
-bun core/dev.ts   # build + watch + serve at http://localhost:3000 (drafts included)
+bun dev   # build + watch + serve at http://localhost:3000 (drafts included)
 ```
 
 Then:
@@ -99,7 +97,6 @@ Then:
 1. Set `BASE_URL`, `AUTHOR`, title, nav, and socials in `site/site.config.ts`.
 2. Add Markdown to `content/posts/` (frontmatter contract in `content/README.md`).
 3. Restyle by asking an agent (the **customize** skill) — or edit `site/` by hand.
-4. Delete the starter posts and example `about` page when you're ready.
 
 ## Build & deploy
 
@@ -108,10 +105,8 @@ bun run build      # generates the site into public/
 bun run typecheck  # tsc --noEmit — validates the content/design contract
 ```
 
-`public/` is just the build output — regenerated from scratch on every build (gitignored,
-safe to delete). Deploy its contents to any static host (Netlify, Cloudflare Pages, GitHub
-Pages, S3, Nginx…). See [`AGENTS.md`](AGENTS.md) for the rules an agent follows when working
-on the site.
+Deploy the `public` build ouput to any static host (Netlify, Cloudflare Pages, GitHub
+Pages, S3, Nginx…).
 
 ## License
 

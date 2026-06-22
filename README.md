@@ -17,11 +17,22 @@ agent to rewrite.
 
 ## Quick start
 
+One command scaffolds, installs, and builds a local blog — pick a theme, or `custom`
+to have your coding agent design it:
 
 ```bash
-git clone https://github.com/trebaud/let-an-agent-build-your-blog.git
-bun install
+bunx let-an-agent-build-your-blog my-blog
+cd my-blog
 bun dev   # build + watch + serve at http://localhost:3000 (drafts included)
+```
+
+It prompts for a starting theme (or pass `--theme <name>`; `--list` to see them all).
+Choosing **custom** scaffolds the base theme and prints the exact command to run the
+**customize** skill in Claude Code, Codex, Pi, or any agent:
+
+```bash
+bunx let-an-agent-build-your-blog my-blog --theme cosmic   # a premade theme
+bunx let-an-agent-build-your-blog my-blog --theme custom   # design it with an agent
 ```
 
 ### Customize

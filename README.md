@@ -39,23 +39,6 @@ The arrow only points one way:
   export const renderPostContent = (post: Post) => `<article>…</article>`
   ```
 
-- Because the boundary is a TypeScript type, `bun run typecheck` is your safety net: rename a
-  field and the compiler points at every component that breaks. **A redesign provably cannot
-  reshape or corrupt your posts.**
-
-## Content vs. design
-
-| You want to…                              | Edit only…                |
-| ----------------------------------------- | ------------------------- |
-| Write or edit a post / page               | `content/`                |
-| Restyle, re-theme, change colors/fonts    | `site/styles/index.css`   |
-| Change layout, header, footer, nav        | `site/components/*.ts`     |
-| Rebrand: title, tagline, author, socials  | `site/site.config.ts`     |
-
-You can restyle the entire site without opening a single post, and write posts without
-knowing anything about the theme. Add to `content/` freely, but don't reshape it (see
-`content/README.md` for the frontmatter contract).
-
 ## Workflow: let an agent do the theming
 
 The repo ships an agent skill at

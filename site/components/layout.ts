@@ -60,34 +60,41 @@ export const renderPage = (meta: PageMeta, content: string) => {
         } catch (e) {}
       })();
     </script>
-    <link rel="stylesheet" href="https://unpkg.com/bamboo.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap">
     <link rel="stylesheet" href="${CONFIG.STYLES_HREF}">
     ${jsonLd ? `<script type="application/ld+json">${jsonLd}</script>` : ""}
     ${CONFIG.ANALYTICS_DOMAIN && CONFIG.ANALYTICS_WEBSITE_ID ? `<script defer src="https://${CONFIG.ANALYTICS_DOMAIN}/script.js" data-website-id="${CONFIG.ANALYTICS_WEBSITE_ID}"></script>` : ""}
   </head>
   <body>
+    <div class="starfield" aria-hidden="true"></div>
+    <div class="page">
     <header class="site-header">
       <div class="site-bar">
         <a href="/" class="site-brand">
-          <span class="site-prompt">${CONFIG.FAVICON_EMOJI}</span>${CONFIG.BLOG_BRAND}
+          <span class="moon" aria-hidden="true"></span>
+          <span class="site-brand-text">${CONFIG.BLOG_BRAND}</span>
         </a>
         <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle color theme">
-          <span class="theme-icon theme-icon-dark">◑</span>
-          <span class="theme-icon theme-icon-light">◐</span>
+          <span class="theme-icon theme-icon-dark">☾</span>
+          <span class="theme-icon theme-icon-light">☀</span>
         </button>
       </div>
-      <p class="site-tagline">~ ${CONFIG.BLOG_SUBTITLE}</p>
+      <p class="site-tagline">${CONFIG.BLOG_SUBTITLE}</p>
       ${renderNavBar(path)}
     </header>
     <main>
       ${content}
     </main>
     <footer class="site-footer">
-      <span class="footer-copy">© ${new Date().getFullYear()} ${CONFIG.AUTHOR}</span>
+      <div class="footer-divider" aria-hidden="true">✦ ❋ ✦</div>
+      <span class="footer-copy">© ${new Date().getFullYear()} ${CONFIG.AUTHOR} · written under the stars</span>
       <span class="footer-links">
         ${CONFIG.SOCIALS.map((s) => `<a href="${s.href}">${s.title}</a>`).join("")}
       </span>
     </footer>
+    </div>
     <script>
       (function () {
         var btn = document.getElementById("theme-toggle");

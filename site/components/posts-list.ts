@@ -15,7 +15,7 @@ export const renderPostsList = (posts: Post[]) => {
   const html = years.map((year) => {
     const yearPosts = grouped[year]
     return `<section class="year-section">
-      <h2 class="year-heading"><span class="year-label">${year}</span></h2>
+      <h2 class="year-heading"><span class="year-label">✦ ${year} ✦</span></h2>
       <ul class="posts-list">
         ${yearPosts.map(({ meta, slug, readingTime }) => {
           const date = new Date(meta.pubDate)
@@ -25,7 +25,7 @@ export const renderPostsList = (posts: Post[]) => {
           })
           return `<li class="post-row">
             <a href="/posts/${slug}" class="post-link">
-              <span class="post-arrow">→</span>
+              <span class="post-arrow" aria-hidden="true">✶</span>
               <span class="post-title">${meta.title}${meta.draft ? ` <span class="draft-badge">draft</span>` : ""}</span>
               <span class="post-meta">${formattedDate} · ${readingTime} min</span>
             </a>

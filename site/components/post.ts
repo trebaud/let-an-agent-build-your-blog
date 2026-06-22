@@ -14,10 +14,10 @@ export const renderPostContent = (post: Post) => {
     ${formattedDate ? `<time>${formattedDate}</time>` : ""}
     <span class="post-meta-sep">·</span>
     <span>${readingTime} min read</span>
-    ${tags.length ? `<span class="post-tags">${tags.map((t) => `<span class="post-tag">#${t}</span>`).join("")}</span>` : ""}
+    ${tags.length ? `<span class="post-tags">${tags.map((t) => `<span class="post-tag">[#${t}]</span>`).join("")}</span>` : ""}
   </div>`
 
-  return `<a href="/" class="post-back">← back</a>
+  return `<a href="/" class="post-back">« BACK</a>
 <article class="post">
   <header class="post-head">
     <h1>${meta.title}</h1>

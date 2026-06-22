@@ -60,34 +60,64 @@ export const renderPage = (meta: PageMeta, content: string) => {
         } catch (e) {}
       })();
     </script>
-    <link rel="stylesheet" href="https://unpkg.com/bamboo.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap">
     <link rel="stylesheet" href="${CONFIG.STYLES_HREF}">
     ${jsonLd ? `<script type="application/ld+json">${jsonLd}</script>` : ""}
     ${CONFIG.ANALYTICS_DOMAIN && CONFIG.ANALYTICS_WEBSITE_ID ? `<script defer src="https://${CONFIG.ANALYTICS_DOMAIN}/script.js" data-website-id="${CONFIG.ANALYTICS_WEBSITE_ID}"></script>` : ""}
   </head>
   <body>
+    <div class="crt-frame">
     <header class="site-header">
+      <!-- Win95-style marquee title bar -->
+      <div class="titlebar">
+        <div class="titlebar-text">
+          <span class="titlebar-icon">${CONFIG.FAVICON_EMOJI}</span>
+          <div class="marquee" aria-hidden="true">
+            <span class="marquee-track">★ ${CONFIG.BLOG_SUBTITLE} ★ &nbsp;&nbsp;&nbsp; 🚧 Under Construction 🚧 &nbsp;&nbsp;&nbsp; ★ ${CONFIG.BLOG_SUBTITLE} ★ &nbsp;&nbsp;&nbsp; 🚧 Under Construction 🚧 &nbsp;&nbsp;&nbsp;</span>
+          </div>
+        </div>
+        <div class="titlebar-buttons" aria-hidden="true">
+          <span class="winbtn">_</span><span class="winbtn">□</span><span class="winbtn">✕</span>
+        </div>
+      </div>
+
       <div class="site-bar">
         <a href="/" class="site-brand">
           <span class="site-prompt">${CONFIG.FAVICON_EMOJI}</span>${CONFIG.BLOG_BRAND}
         </a>
         <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle color theme">
-          <span class="theme-icon theme-icon-dark">◑</span>
-          <span class="theme-icon theme-icon-light">◐</span>
+          <span class="theme-icon theme-icon-dark">🌙 NIGHT SURF</span>
+          <span class="theme-icon theme-icon-light">☀ DAY MODE</span>
         </button>
       </div>
-      <p class="site-tagline">~ ${CONFIG.BLOG_SUBTITLE}</p>
+      <p class="site-tagline">${CONFIG.BLOG_SUBTITLE}</p>
       ${renderNavBar(path)}
+      <div class="star-rule" aria-hidden="true"></div>
     </header>
     <main>
       ${content}
+      <div class="star-rule" aria-hidden="true"></div>
+      <div class="construction-banner">
+        <span class="blink">🚧</span> This page is under eternal construction <span class="blink">🚧</span>
+      </div>
     </main>
     <footer class="site-footer">
-      <span class="footer-copy">© ${new Date().getFullYear()} ${CONFIG.AUTHOR}</span>
+      <div class="visitor-counter" aria-label="visitor counter">
+        <span class="counter-label">You are visitor</span>
+        <span class="counter-digits">#000420</span>
+      </div>
+      <div class="webring" aria-hidden="true">
+        <a href="#">◄ prev</a><span class="webring-sep">·</span><a href="#">[ the agent webring ]</a><span class="webring-sep">·</span><a href="#">next ►</a>
+      </div>
+      <span class="footer-copy">© 1999–${new Date().getFullYear()} ${CONFIG.AUTHOR} · all rights reserved (probably)</span>
       <span class="footer-links">
         ${CONFIG.SOCIALS.map((s) => `<a href="${s.href}">${s.title}</a>`).join("")}
       </span>
+      <p class="footer-netscape">Best viewed in Netscape Navigator at 800×600 🚀</p>
     </footer>
+    </div>
     <script>
       (function () {
         var btn = document.getElementById("theme-toggle");

@@ -7,16 +7,16 @@ export const CONFIG = {
   // canonical URLs, Open Graph tags, the sitemap, and the RSS feed.
   BASE_URL: "https://example.com",
   AUTHOR: "Your Name",
-  FAVICON_EMOJI: "✦",
+  FAVICON_EMOJI: "💾",
   BLOG_TITLE: "Let an agent build your blog",
   // Short slug shown in the header "prompt", e.g. brand@host style.
-  BLOG_BRAND: "agentblog",
-  BLOG_SUBTITLE: "A typed static site generator.",
+  BLOG_BRAND: "AgentBlog 2000",
+  BLOG_SUBTITLE: "★ Welcome to my little corner of the World Wide Web ★",
   // Public URL of the stylesheet (output path is wired up in ../core/build.ts).
   STYLES_HREF: "/assets/css/index.css",
   SOCIALS: [
-    { title: "github", href: "https://github.com/your-handle/let-an-agent-build-your-blog" },
-    { title: "rss", href: "/feed.xml" },
+    { title: "[ github ]", href: "https://github.com/your-handle/let-an-agent-build-your-blog" },
+    { title: "[ rss ]", href: "/feed.xml" },
   ],
   // Optional privacy-friendly analytics (Umami). Leave both empty to omit the
   // analytics snippet entirely — see site/components/layout.ts.

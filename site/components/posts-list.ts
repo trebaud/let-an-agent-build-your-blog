@@ -12,6 +12,13 @@ export const renderPostsList = (posts: Post[]) => {
   // Sort years descending
   const years = Object.keys(grouped).map(Number).sort((a, b) => b - a)
 
+  // Find the single newest post across all years (gets the blinking NEW! badge)
+  const newestSlug = posts.reduce<{ slug: string; time: number } | null>((newest, post) => {
+    const time = new Date(post.meta.pubDate).getTime()
+    if (!newest || time > newest.time) return { slug: post.slug, time }
+    return newest
+  }, null)?.slug
+
   const html = years.map((year) => {
     const yearPosts = grouped[year]
     return `<section class="year-section">
@@ -23,10 +30,11 @@ export const renderPostsList = (posts: Post[]) => {
             month: "short",
             day: "numeric",
           })
+          const isNewest = slug === newestSlug && !meta.draft
           return `<li class="post-row">
             <a href="/posts/${slug}" class="post-link">
-              <span class="post-arrow">→</span>
-              <span class="post-title">${meta.title}${meta.draft ? ` <span class="draft-badge">draft</span>` : ""}</span>
+              <span class="post-arrow">►</span>
+              <span class="post-title">${meta.title}${isNewest ? ` <span class="new-badge blink">NEW!</span>` : ""}${meta.draft ? ` <span class="draft-badge">draft</span>` : ""}</span>
               <span class="post-meta">${formattedDate} · ${readingTime} min</span>
             </a>
             ${meta.description ? `<p class="post-description">${meta.description}</p>` : ""}

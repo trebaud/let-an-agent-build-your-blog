@@ -67,16 +67,16 @@ export const renderPage = (meta: PageMeta, content: string) => {
   </head>
   <body>
     <header class="site-header">
-      <div class="site-bar">
-        <a href="/" class="site-brand">
-          <span class="site-prompt">${CONFIG.FAVICON_EMOJI}</span>${CONFIG.BLOG_BRAND}
-        </a>
-        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle color theme">
-          <span class="theme-icon theme-icon-dark">◑</span>
-          <span class="theme-icon theme-icon-light">◐</span>
-        </button>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle color theme">
+        <span class="theme-icon theme-icon-dark">◑</span>
+        <span class="theme-icon theme-icon-light">◐</span>
+      </button>
+      <a href="/" class="site-avatar">${CONFIG.FAVICON_EMOJI}</a>
+      <a href="/" class="site-brand">${CONFIG.BLOG_BRAND}</a>
+      <p class="site-tagline">${CONFIG.BLOG_SUBTITLE}</p>
+      <div class="hero-socials">
+        ${CONFIG.SOCIALS.map((s) => `<a href="${s.href}">${s.title}</a>`).join("")}
       </div>
-      <p class="site-tagline">~ ${CONFIG.BLOG_SUBTITLE}</p>
       ${renderNavBar(path)}
     </header>
     <main>

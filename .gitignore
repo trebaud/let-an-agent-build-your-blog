@@ -6,6 +6,9 @@ public/
 dist/
 *.tsbuildinfo
 
+# Package tarballs (bun pm pack / npm pack)
+*.tgz
+
 # Logs
 *.log
 

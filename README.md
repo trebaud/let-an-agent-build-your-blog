@@ -67,28 +67,33 @@ Eight themes, each built by the **customize** skill from the same content, each 
 own branch. The first four are practical starting points; the next four push the framework
 into more original, whimsical territory to show how far the presentation layer can travel.
 
+**▶ Browse them all live: [trebaud.github.io/let-an-agent-build-your-blog](https://trebaud.github.io/let-an-agent-build-your-blog/)** — the same content built and deployed on every theme.
+
 ### Terminal / dev — the default
 
 A monospace, Tokyo-Night palette with a `brand@host` header. Lives on `main` (also branched
-as [`theme/terminal`](../../tree/theme/terminal)).
+as [`theme/terminal`](../../tree/theme/terminal)). **[▶ Live demo](https://trebaud.github.io/let-an-agent-build-your-blog/terminal/)**
 
 ![Terminal theme: monospace dev blog listing, opening a post, then toggling to a dark Tokyo-Night palette](docs/themes/terminal.gif)
 
 ### Minimal / typographic — [`theme/minimal`](../../tree/theme/minimal)
 
 One centered serif column on cream paper, generous whitespace, content first.
+**[▶ Live demo](https://trebaud.github.io/let-an-agent-build-your-blog/minimal/)**
 
 ![Minimal theme: centered serif column on cream paper, opening a post, then a warm dark mode](docs/themes/minimal.gif)
 
 ### Editorial / magazine — [`theme/editorial`](../../tree/theme/editorial)
 
 A bold masthead and a responsive card grid with category kickers and an accent rule.
+**[▶ Live demo](https://trebaud.github.io/let-an-agent-build-your-blog/editorial/)**
 
 ![Editorial theme: magazine masthead and card grid, opening a post, then a dark mode with coral accent](docs/themes/editorial.gif)
 
 ### Personal landing — [`theme/personal`](../../tree/theme/personal)
 
 A centered hero with avatar, tagline, and social links over a compact post list.
+**[▶ Live demo](https://trebaud.github.io/let-an-agent-build-your-blog/personal/)**
 
 ![Personal landing theme: centered hero with avatar and social pills, opening a post, then a mint dark mode](docs/themes/personal.gif)
 
@@ -97,6 +102,7 @@ A centered hero with avatar, tagline, and social links over a compact post list.
 
 A Web 1.0 fever dream: a tiled teal wallpaper, a Windows-95 window with a scrolling marquee
 title bar, a blinking `NEW!` badge, a visitor counter, and a "best viewed in Netscape" footer.
+**[▶ Live demo](https://trebaud.github.io/let-an-agent-build-your-blog/retro/)**
 
 ![Retro 90s theme: teal-tiled Windows-95 window blog with a marquee title bar and visitor counter, opening a post, then toggling to a neon night-surfer dark mode](docs/themes/retro.gif)
 
@@ -104,6 +110,7 @@ title bar, a blinking `NEW!` badge, a visitor counter, and a "best viewed in Net
 
 Marker-on-paper: a ruled cream page with a red margin line, handwriting fonts, SVG-wobbled
 doodle borders, sticky-note accents, and a to-do-checklist post list. Dark mode is a chalkboard.
+**[▶ Live demo](https://trebaud.github.io/let-an-agent-build-your-blog/notebook/)**
 
 ![Hand-drawn notebook theme: ruled cream paper with handwriting and a checklist post list, opening a post, then toggling to a chalkboard dark mode](docs/themes/notebook.gif)
 
@@ -111,6 +118,7 @@ doodle borders, sticky-note accents, and a to-do-checklist post list. Dark mode 
 
 80s retro-future, dark by default: a glowing chrome title over a synthwave sun and a neon
 perspective-grid horizon. Toggling reveals a pastel "daytime Miami" light mode.
+**[▶ Live demo](https://trebaud.github.io/let-an-agent-build-your-blog/vaporwave/)**
 
 ![Vaporwave theme: neon chrome title over a synthwave sun and grid horizon on deep purple, opening a post, then toggling to a pastel daytime Miami light mode](docs/themes/vaporwave.gif)
 
@@ -118,6 +126,7 @@ perspective-grid horizon. Toggling reveals a pastel "daytime Miami" light mode.
 
 A dreamy night sky: a twinkling star field, a glowing moon, an elegant serif with a gold
 drop-cap, and ornamental dividers. Toggling fades the stars into a soft dawn.
+**[▶ Live demo](https://trebaud.github.io/let-an-agent-build-your-blog/cosmic/)**
 
 ![Cosmic storybook theme: serif blog over a twinkling night sky with a glowing moon and gold drop-cap, opening a post, then toggling to a soft dawn light mode](docs/themes/cosmic.gif)
 

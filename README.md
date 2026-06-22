@@ -1,5 +1,10 @@
 # Let an agent build your blog
 
+[![CI](https://github.com/trebaud/let-an-agent-build-your-blog/actions/workflows/ci.yml/badge.svg)](https://github.com/trebaud/let-an-agent-build-your-blog/actions/workflows/ci.yml)
+[![Bun](https://img.shields.io/badge/bun-1.x-000000?logo=bun)](https://bun.sh)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](#license)
+
 A small static site generator (Bun + TypeScript) with one idea:
 
 > **You don't need a templating engine.** Your content is typed data. Your theme is plain

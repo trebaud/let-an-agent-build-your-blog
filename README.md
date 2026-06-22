@@ -70,6 +70,40 @@ The skill interviews you to pin down the design, edits `site/` **only**, then ru
 `bun run build` and `bun run typecheck` to prove the content contract still holds. That
 guardrail is what makes "let an agent redesign it" safe to say.
 
+## Theme gallery
+
+Four themes, each built by the **customize** skill from the same content, each living on its
+own branch. The clips below show the home listing, a post, and the light/dark toggle.
+
+### Terminal / dev — the default
+
+A monospace, Tokyo-Night palette with a `brand@host` header. Lives on `main` (also branched
+as [`theme/terminal`](../../tree/theme/terminal)).
+
+![Terminal theme: monospace dev blog listing, opening a post, then toggling to a dark Tokyo-Night palette](docs/themes/terminal.gif)
+
+### Minimal / typographic — [`theme/minimal`](../../tree/theme/minimal)
+
+One centered serif column on cream paper, generous whitespace, content first.
+
+![Minimal theme: centered serif column on cream paper, opening a post, then a warm dark mode](docs/themes/minimal.gif)
+
+### Editorial / magazine — [`theme/editorial`](../../tree/theme/editorial)
+
+A bold masthead and a responsive card grid with category kickers and an accent rule.
+
+![Editorial theme: magazine masthead and card grid, opening a post, then a dark mode with coral accent](docs/themes/editorial.gif)
+
+### Personal landing — [`theme/personal`](../../tree/theme/personal)
+
+A centered hero with avatar, tagline, and social links over a compact post list.
+
+![Personal landing theme: centered hero with avatar and social pills, opening a post, then a mint dark mode](docs/themes/personal.gif)
+
+Each theme is the diff of a single `git` branch against `main` — `site/styles/index.css`,
+`site/site.config.ts`, and (for the editorial/personal layouts) a component or two. Nothing
+in `content/` or `core/` changed.
+
 ## Quick start
 
 ```bash

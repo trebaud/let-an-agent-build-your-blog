@@ -6,12 +6,12 @@ export const CONFIG = {
   // The canonical origin of the deployed site (no trailing slash). Used for
   // canonical URLs, Open Graph tags, the sitemap, and the RSS feed.
   BASE_URL: "https://example.com",
-  AUTHOR: "Your Name",
-  FAVICON_EMOJI: "✦",
-  BLOG_TITLE: "Let an agent build your blog",
+  AUTHOR: "Ada Quill",
+  FAVICON_EMOJI: "✒",
+  BLOG_TITLE: "Field Notes",
   // Short slug shown in the header "prompt", e.g. brand@host style.
-  BLOG_BRAND: "agentblog",
-  BLOG_SUBTITLE: "A typed static site generator.",
+  BLOG_BRAND: "Field Notes",
+  BLOG_SUBTITLE: "Notes on building things, mostly software.",
   // Public URL of the stylesheet (output path is wired up in ../core/build.ts).
   STYLES_HREF: "/assets/css/index.css",
   SOCIALS: [

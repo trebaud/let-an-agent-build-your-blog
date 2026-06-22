@@ -8,13 +8,11 @@
 A small static site generator (Bun + TypeScript) with one idea:
 
 > **You don't need a templating engine.** Your content is typed data. Your theme is plain
-> TypeScript functions. An agent restyles the site; the types guarantee it can't touch a word
-> you wrote.
+> TypeScript functions. An agent designs the site
 
 No Liquid, no Handlebars, no JSX runtime — a component is just a function that takes typed
 content and returns an HTML string. That makes the whole presentation layer trivial for an
-agent (or you) to rewrite, and impossible to rewrite *wrongly*: if a redesign breaks the
-contract, `tsc` fails the build.
+agent to rewrite.
 
 ## Architecture
 
@@ -27,17 +25,6 @@ site/      The theme — everything the site looks like. Yours to rewrite.
 
 content/  →  core/ (parse)  →  site/ (render)  →  public/
 ```
-
-The arrow only points one way:
-
-- `core/content.ts` parses Markdown into plain typed objects (`Post`, `Page`, `PostMeta`).
-  That type **is** the contract between writing and design.
-- `site/` imports that model **as a type only** — it never parses Markdown, and the engine
-  never emits site HTML. Components are ordinary functions (`site/components/*.ts`):
-
-  ```ts
-  export const renderPostContent = (post: Post) => `<article>…</article>`
-  ```
 
 ## Workflow: let an agent do the theming
 

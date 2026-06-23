@@ -5,9 +5,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](#license)
 
-A small static site generator (Bun + TypeScript) built around one idea:
-
-> **Your content is typed data. Your theme is plain TypeScript. An agent designs the look.**
+A small static site generator (Bun + TypeScript) optimized for LLM agents.
 
 No template DSL — a component is a function that takes typed content and returns an HTML string.
 The whole look lives in a few small functions, so an agent can rewrite the presentation layer
@@ -35,8 +33,6 @@ bunx let-an-agent-build-your-blog --list                   # list themes
 Claude Code, Codex, Pi, or any other agent.
 
 ## How it's organized
-
-Three layers, one rule: **content and design never touch each other.**
 
 ```
 content/  →  core/ (parse)  →  site/ (render)  →  public/

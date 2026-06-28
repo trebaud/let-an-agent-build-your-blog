@@ -94,7 +94,7 @@ accent color, ≥4.5:1 contrast, and no more than two font families.
 | Change how a single post renders (byline, tags, etc.)  | `site/components/post.ts`         |
 | Change the post listing (grouping, table, cards…)      | `site/components/posts-list.ts`   |
 | Rebrand: title, tagline, author, socials, analytics    | `site/site.config.ts`            |
-| Change the canonical host / base URL                    | `BASE_URL` in `site/site.config.ts` (also update `site/assets/robots.txt`) |
+| Change the canonical host / base URL                    | `BASE_URL` in `site/site.config.ts` (`robots.txt` is now generated dynamically from this value) |
 | Change the 404 / error page or other static files       | `site/assets/` (copied verbatim to the site root) |
 
 Everything the engine renders is reachable from `site/index.ts` (the barrel it imports).
@@ -126,6 +126,70 @@ Run this only after the design is agreed (see "Interview first, then build" abov
 4. For a visual sanity check, run `bun core/dev.ts` and view http://localhost:3000.
 5. For risky presentation changes, do a behavior diff: snapshot `public/` before, rebuild,
    `diff -r` (only `feed.xml`'s `lastBuildDate` is expected to differ).
+
+## Site config pass (run after styling, or standalone)
+
+After the visual changes are verified, check whether `site/site.config.ts` still has
+placeholder values and, if so, walk the user through filling them in.
+
+**When to run this pass:**
+- Always run it once after completing a styling session — the design is done but the site
+  still says "Your Name" and "example.com".
+- Also run it standalone if the user asks about identity, branding, URL, or SEO config.
+- Skip it if the user has already filled everything in (read the file first to check).
+
+### Step 1 — Read the file and identify gaps
+
+Read `site/site.config.ts`. Placeholder values that signal "not yet configured":
+
+| Field | Placeholder signal |
+|---|---|
+| `BASE_URL` | `"https://example.com"` |
+| `AUTHOR` | `"Your Name"` |
+| `BLOG_TITLE` | `"Let an agent build your blog"` |
+| `BLOG_BRAND` | `"agentblog"` |
+| `BLOG_SUBTITLE` | `"A typed static site generator."` |
+| `FAVICON_EMOJI` | `"✦"` (ask — may be intentional) |
+| `SOCIALS[github].href` | contains `"your-handle"` |
+| `TWITTER_HANDLE` | `""` (optional — ask if they have one) |
+| `OG_IMAGE` | `""` (optional — ask if they want a social card image) |
+| `ANALYTICS_DOMAIN` | `""` (optional — ask if they use Umami) |
+
+Fields to **skip** (managed elsewhere or internal):
+- `STYLES_HREF` — internal build path, never ask about it.
+- `NAV` — covered during the visual design interview if nav was in scope; ask here only if it
+  wasn't touched and looks like a placeholder.
+
+### Step 2 — Interview with `AskUserQuestion`
+
+Group the fields logically into at most two question rounds so you don't overwhelm the user.
+Only ask about fields that are still at placeholder values — if `BLOG_TITLE` is already set,
+don't ask about it.
+
+**Round 1 — Identity (always ask if any are at placeholder):**
+- Blog title, tagline (subtitle), author name, brand slug (short slug in header prompt)
+- Favicon emoji (offer to keep current or suggest alternatives)
+
+**Round 2 — URLs & optional SEO (combine into one question block):**
+- `BASE_URL`: deployed domain (required for correct canonical URLs, sitemap, RSS, og:url)
+- GitHub profile / repo link for the social footer
+- `TWITTER_HANDLE`: their Twitter/X handle, or skip
+- `OG_IMAGE`: if they want social card previews and have an image URL ready, or skip for now
+- Analytics: Umami domain + website ID, or skip
+
+For optional fields (`TWITTER_HANDLE`, `OG_IMAGE`, `ANALYTICS_*`) always offer a clear "skip
+for now" path — don't block on them.
+
+### Step 3 — Apply and verify
+
+Edit `site/site.config.ts` with the user's answers. Then:
+
+```bash
+bun run build   # must succeed
+```
+
+Confirm the output looks right by noting a few key URLs in the build output. No typecheck is
+needed for a config-only change — it's pure data, not structural.
 
 ## Notes
 

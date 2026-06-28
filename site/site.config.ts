@@ -7,11 +7,11 @@ export const CONFIG = {
   // canonical URLs, Open Graph tags, the sitemap, and the RSS feed.
   BASE_URL: "https://example.com",
   AUTHOR: "Your Name",
-  FAVICON_EMOJI: "✦",
+  FAVICON_EMOJI: "🧠",
   BLOG_TITLE: "Let an agent build your blog",
   // Short slug shown in the header "prompt", e.g. brand@host style.
-  BLOG_BRAND: "agentblog",
-  BLOG_SUBTITLE: "A typed static site generator.",
+  BLOG_BRAND: "neural.frontier",
+  BLOG_SUBTITLE: "notes from the intelligence explosion",
   // Public URL of the stylesheet (output path is wired up in ../core/build.ts).
   STYLES_HREF: "/assets/css/index.css",
   SOCIALS: [

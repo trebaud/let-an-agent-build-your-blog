@@ -60,7 +60,6 @@ export const renderPage = (meta: PageMeta, content: string) => {
         } catch (e) {}
       })();
     </script>
-    <link rel="stylesheet" href="https://unpkg.com/bamboo.css">
     <link rel="stylesheet" href="${CONFIG.STYLES_HREF}">
     ${jsonLd ? `<script type="application/ld+json">${jsonLd}</script>` : ""}
     ${CONFIG.ANALYTICS_DOMAIN && CONFIG.ANALYTICS_WEBSITE_ID ? `<script defer src="https://${CONFIG.ANALYTICS_DOMAIN}/script.js" data-website-id="${CONFIG.ANALYTICS_WEBSITE_ID}"></script>` : ""}
@@ -69,11 +68,11 @@ export const renderPage = (meta: PageMeta, content: string) => {
     <header class="site-header">
       <div class="site-bar">
         <a href="/" class="site-brand">
-          <span class="site-prompt">${CONFIG.FAVICON_EMOJI}</span>${CONFIG.BLOG_BRAND}
+          ${CONFIG.BLOG_BRAND}
         </a>
         <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle color theme">
-          <span class="theme-icon theme-icon-dark">◑</span>
-          <span class="theme-icon theme-icon-light">◐</span>
+          <span class="theme-icon theme-icon-dark">◉</span>
+          <span class="theme-icon theme-icon-light">○</span>
         </button>
       </div>
       <p class="site-tagline">~ ${CONFIG.BLOG_SUBTITLE}</p>

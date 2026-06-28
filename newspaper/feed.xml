@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Let an agent build your blog</title>
+    <link>https://example.com</link>
+    <description>All the code that's fit to print</description>
+    <language>en</language>
+    <lastBuildDate>Sun, 28 Jun 2026 13:30:00 GMT</lastBuildDate>
+    <atom:link href="https://example.com/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title><![CDATA[Customize with an agent]]></title>
+      <link>https://example.com/posts/customize-with-an-agent</link>
+      <guid isPermaLink="true">https://example.com/posts/customize-with-an-agent</guid>
+      <pubDate>Wed, 14 Jan 2026 09:00:00 GMT</pubDate>
+      <description><![CDATA[The presentation layer is designed to be rewritten by an AI agent following a bundled skill — describe what you want, the agent edits only site/.]]></description>
+      <author>Your Name</author>
+    </item>
+    <item>
+      <title><![CDATA[Content is a contract]]></title>
+      <link>https://example.com/posts/content-as-contract</link>
+      <guid isPermaLink="true">https://example.com/posts/content-as-contract</guid>
+      <pubDate>Mon, 12 Jan 2026 09:00:00 GMT</pubDate>
+      <description><![CDATA[Why this generator treats your writing as a typed, presentation-agnostic contract — and what that buys you.]]></description>
+      <author>Your Name</author>
+    </item>
+    <item>
+      <title><![CDATA[Hello, world]]></title>
+      <link>https://example.com/posts/hello-world</link>
+      <guid isPermaLink="true">https://example.com/posts/hello-world</guid>
+      <pubDate>Sat, 10 Jan 2026 09:00:00 GMT</pubDate>
+      <description><![CDATA[Your first post — and a tour of what's in the box.]]></description>
+      <author>Your Name</author>
+    </item>
+  </channel>
+</rss>

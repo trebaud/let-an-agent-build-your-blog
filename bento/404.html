@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 / Lost in the Void</title>
+    <style>
+        :root {
+            --bg: #1a1b26;
+            --bg-soft: #1f2335;
+            --text: #c0caf5;
+            --dim: #787c99;
+            --line: #2a2e42;
+            --accent: #7aa2f7;
+            --mono: ui-monospace, "JetBrains Mono", SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --bg: #fbfbfd;
+                --bg-soft: #f1f2f6;
+                --text: #2c3043;
+                --dim: #6c7086;
+                --line: #e3e4ec;
+                --accent: #2e7de9;
+            }
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 460px;
+            width: 100%;
+        }
+
+        .code {
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            color: var(--dim);
+            margin-bottom: 1rem;
+        }
+
+        .code .accent { color: var(--accent); }
+
+        h1 {
+            font-family: var(--mono);
+            font-size: 4.5rem;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.05rem;
+            color: var(--dim);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .nav-link {
+            font-family: var(--mono);
+            font-size: 0.9rem;
+            color: var(--accent);
+            text-decoration: none;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 0.55rem 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: border-color 0.2s ease, background 0.2s ease;
+        }
+
+        .nav-link:hover {
+            border-color: var(--accent);
+            background: var(--bg-soft);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="code">~ <span class="accent">$</span> cd /the-void</div>
+        <h1>404</h1>
+        <p>This path leads nowhere. The content you're looking for has been moved, deleted, or never existed in the first place.</p>
+        <a href="/let-an-agent-build-your-blog/bento/" class="nav-link">← back home</a>
+    </div>
+</body>
+</html>

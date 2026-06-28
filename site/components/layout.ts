@@ -52,6 +52,9 @@ export const renderPage = (meta: PageMeta, content: string) => {
     <link rel="alternate" type="application/rss+xml" title="${CONFIG.BLOG_TITLE}" href="${CONFIG.BASE_URL}/feed.xml" />
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${CONFIG.FAVICON_EMOJI}</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <script>
       (function () {
         try {
@@ -60,34 +63,38 @@ export const renderPage = (meta: PageMeta, content: string) => {
         } catch (e) {}
       })();
     </script>
-    <link rel="stylesheet" href="https://unpkg.com/bamboo.css">
     <link rel="stylesheet" href="${CONFIG.STYLES_HREF}">
     ${jsonLd ? `<script type="application/ld+json">${jsonLd}</script>` : ""}
     ${CONFIG.ANALYTICS_DOMAIN && CONFIG.ANALYTICS_WEBSITE_ID ? `<script defer src="https://${CONFIG.ANALYTICS_DOMAIN}/script.js" data-website-id="${CONFIG.ANALYTICS_WEBSITE_ID}"></script>` : ""}
   </head>
   <body>
-    <header class="site-header">
-      <div class="site-bar">
-        <a href="/" class="site-brand">
-          <span class="site-prompt">${CONFIG.FAVICON_EMOJI}</span>${CONFIG.BLOG_BRAND}
-        </a>
-        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle color theme">
-          <span class="theme-icon theme-icon-dark">◑</span>
-          <span class="theme-icon theme-icon-light">◐</span>
-        </button>
+    <div class="page-wrap">
+      <aside class="sidebar">
+        <div class="sidebar-inner">
+          <a href="/" class="site-brand">
+            <span class="site-prompt">${CONFIG.FAVICON_EMOJI}</span>
+            <span class="brand-text">${CONFIG.BLOG_BRAND}</span>
+          </a>
+          <p class="site-tagline">${CONFIG.BLOG_SUBTITLE}</p>
+          ${renderNavBar(path)}
+          <div class="sidebar-footer">
+            <div class="sidebar-socials">
+              ${CONFIG.SOCIALS.map((s) => `<a href="${s.href}" class="social-link">${s.title}</a>`).join("")}
+            </div>
+            <p class="sidebar-copy">© ${new Date().getFullYear()} ${CONFIG.AUTHOR}</p>
+          </div>
+          <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle color theme">
+            <span class="theme-icon theme-icon-dark">◑ dark</span>
+            <span class="theme-icon theme-icon-light">◐ light</span>
+          </button>
+        </div>
+      </aside>
+      <div class="content-col">
+        <main>
+          ${content}
+        </main>
       </div>
-      <p class="site-tagline">~ ${CONFIG.BLOG_SUBTITLE}</p>
-      ${renderNavBar(path)}
-    </header>
-    <main>
-      ${content}
-    </main>
-    <footer class="site-footer">
-      <span class="footer-copy">© ${new Date().getFullYear()} ${CONFIG.AUTHOR}</span>
-      <span class="footer-links">
-        ${CONFIG.SOCIALS.map((s) => `<a href="${s.href}">${s.title}</a>`).join("")}
-      </span>
-    </footer>
+    </div>
     <script>
       (function () {
         var btn = document.getElementById("theme-toggle");

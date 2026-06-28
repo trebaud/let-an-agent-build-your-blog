@@ -66,7 +66,7 @@ the sitemap, and the RSS feed.
 
 ## Theme gallery
 
-**▶ Browse them all live: [trebaud.github.io/let-an-agent-build-your-blog](https://trebaud.github.io/let-an-agent-build-your-blog/)**
+**▶ Browse them all live: [trebaud.github.io/let-an-agent-build-your-blog](https://trebaud.github.io/let-an-agent-build-your-blog/)** (10 themes)
 
 ### Terminal — default
 
@@ -123,6 +123,20 @@ Serif over a twinkling night sky.
 [Live demo](https://trebaud.github.io/let-an-agent-build-your-blog/cosmic/) · [`theme/cosmic`](../../tree/theme/cosmic)
 
 ![Cosmic theme](docs/themes/cosmic.gif)
+
+### Neural Frontier
+
+AI/AGI research aesthetic — near-black bg, electric blue + matrix green accents, full monospace, animated scan line.
+[Live demo](https://trebaud.github.io/let-an-agent-build-your-blog/neural/) · [`theme/neural`](../../tree/theme/neural)
+
+![Neural Frontier theme](docs/themes/neural.png)
+
+### Afterhours
+
+Vintage jazz guitar — warm dark club tones, Playfair Display serif, gold accents, music-note post bullets.
+[Live demo](https://trebaud.github.io/let-an-agent-build-your-blog/jazz/) · [`theme/jazz`](../../tree/theme/jazz)
+
+![Afterhours jazz theme](docs/themes/jazz.png)
 
 ## License
 

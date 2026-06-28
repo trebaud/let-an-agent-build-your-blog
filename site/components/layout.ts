@@ -60,6 +60,9 @@ export const renderPage = (meta: PageMeta, content: string) => {
         } catch (e) {}
       })();
     </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${CONFIG.STYLES_HREF}">
     ${jsonLd ? `<script type="application/ld+json">${jsonLd}</script>` : ""}
     ${CONFIG.ANALYTICS_DOMAIN && CONFIG.ANALYTICS_WEBSITE_ID ? `<script defer src="https://${CONFIG.ANALYTICS_DOMAIN}/script.js" data-website-id="${CONFIG.ANALYTICS_WEBSITE_ID}"></script>` : ""}
@@ -75,7 +78,7 @@ export const renderPage = (meta: PageMeta, content: string) => {
           <span class="theme-icon theme-icon-light">○</span>
         </button>
       </div>
-      <p class="site-tagline">~ ${CONFIG.BLOG_SUBTITLE}</p>
+      <p class="site-tagline">${CONFIG.BLOG_SUBTITLE}</p>
       ${renderNavBar(path)}
     </header>
     <main>

@@ -1,43 +1,76 @@
 /* ==========================================================================
    Spread — full-bleed cover cards theme
-   Each post is a tall card with gradient bg and white text overlay
+   Each post is a tall card with gradient bg, light and dark modes
    ========================================================================== */
 
 /* --- Design tokens -------------------------------------------------------- */
 
 :root,
 html[data-theme="light"] {
-  --bg: #0d0d0d;
-  --header-bg: #0d0d0d;
-  --txt: #f0ede8;
-  --muted: rgba(240,237,232,0.55);
-  --line: rgba(240,237,232,0.12);
-  --accent: #e8c46a;
-  --accent-soft: rgba(232,196,106,0.12);
+  --bg: #f5f3ef;
+  --header-bg: #ffffff;
+  --txt: #1a1a1a;
+  --muted: rgba(26,26,26,0.5);
+  --line: rgba(26,26,26,0.1);
+  --accent: #b45309;
+  --accent-soft: rgba(180,83,9,0.1);
+  --card-text: #1a1a1a;
+  --card-overlay: linear-gradient(to top, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.6) 60%, rgba(255,255,255,0) 100%);
+  --tag-bg: rgba(180,83,9,0.1);
+  --tag-border: rgba(180,83,9,0.25);
+  --tag-color: #b45309;
+  --footer-color: rgba(255,255,255,0.55);
 }
 
-/* Dark and light are both dark for this theme (magazine cover aesthetic) */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #080808;
-    --header-bg: #080808;
+    --header-bg: #0d0d0d;
     --txt: #f0ede8;
     --muted: rgba(240,237,232,0.5);
     --line: rgba(240,237,232,0.1);
     --accent: #e8c46a;
     --accent-soft: rgba(232,196,106,0.12);
+    --card-text: #ffffff;
+    --card-overlay: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.05) 100%);
+    --tag-bg: rgba(232,196,106,0.15);
+    --tag-border: rgba(232,196,106,0.3);
+    --tag-color: #e8c46a;
+    --footer-color: rgba(255,255,255,0.55);
   }
 }
 
 html[data-theme="dark"] {
   --bg: #080808;
-  --header-bg: #080808;
+  --header-bg: #0d0d0d;
+  --txt: #f0ede8;
+  --muted: rgba(240,237,232,0.5);
+  --line: rgba(240,237,232,0.1);
+  --accent: #e8c46a;
+  --accent-soft: rgba(232,196,106,0.12);
+  --card-text: #ffffff;
+  --card-overlay: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.05) 100%);
+  --tag-bg: rgba(232,196,106,0.15);
+  --tag-border: rgba(232,196,106,0.3);
+  --tag-color: #e8c46a;
+  --footer-color: rgba(255,255,255,0.55);
 }
 
-html[data-theme="light"] {
-  --bg: #111111;
-  --header-bg: #111111;
-}
+/* --- Card gradient pairs: dark / light ------------------------------------ */
+
+/* Dark gradients (deep, saturated) */
+.grad-1 { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); }
+.grad-2 { background: linear-gradient(135deg, #2d1b69 0%, #11998e 100%); }
+.grad-3 { background: linear-gradient(135deg, #3d0000 0%, #8b0000 50%, #ff4500 100%); }
+.grad-4 { background: linear-gradient(135deg, #0a192f 0%, #112240 50%, #1e3a5f 100%); }
+.grad-5 { background: linear-gradient(135deg, #1a0533 0%, #3d1066 50%, #6b21a8 100%); }
+
+/* Light gradients (vivid, airy) */
+html[data-theme="light"] .grad-1 { background: linear-gradient(135deg, #bfdbfe 0%, #93c5fd 50%, #60a5fa 100%); }
+html[data-theme="light"] .grad-2 { background: linear-gradient(135deg, #a7f3d0 0%, #34d399 50%, #059669 100%); }
+html[data-theme="light"] .grad-3 { background: linear-gradient(135deg, #fde68a 0%, #fbbf24 50%, #f59e0b 100%); }
+html[data-theme="light"] .grad-4 { background: linear-gradient(135deg, #c7d2fe 0%, #a5b4fc 50%, #818cf8 100%); }
+html[data-theme="light"] .grad-5 { background: linear-gradient(135deg, #fbcfe8 0%, #f9a8d4 50%, #ec4899 100%); }
 
 /* --- Reset & base --------------------------------------------------------- */
 
@@ -182,13 +215,13 @@ main {
 
 .cover-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
 }
 
 .cover-link {
   display: block;
   text-decoration: none;
-  color: #ffffff;
+  color: var(--card-text);
   height: 100%;
   min-height: inherit;
 }
@@ -199,12 +232,7 @@ main {
   flex-direction: column;
   justify-content: flex-end;
   min-height: 260px;
-  background: linear-gradient(
-    to top,
-    rgba(0,0,0,0.75) 0%,
-    rgba(0,0,0,0.3) 50%,
-    rgba(0,0,0,0.05) 100%
-  );
+  background: var(--card-overlay);
 }
 
 .cover-tags {
@@ -218,11 +246,11 @@ main {
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--accent);
-  background: rgba(232,196,106,0.15);
+  color: var(--tag-color);
+  background: var(--tag-bg);
   padding: 0.2em 0.6em;
   border-radius: 4px;
-  border: 1px solid rgba(232,196,106,0.3);
+  border: 1px solid var(--tag-border);
 }
 
 .cover-title {
@@ -232,15 +260,15 @@ main {
   line-height: 1.2;
   margin: 0 0 0.6rem;
   letter-spacing: -0.02em;
-  color: #ffffff;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  color: var(--card-text);
 }
 
 .cover-desc {
   font-size: 0.92rem;
   line-height: 1.55;
   margin: 0 0 1rem;
-  color: rgba(255,255,255,0.8);
+  color: var(--card-text);
+  opacity: 0.75;
   max-width: 55ch;
 }
 
@@ -249,7 +277,8 @@ main {
   align-items: center;
   gap: 1rem;
   font-size: 0.75rem;
-  color: rgba(255,255,255,0.55);
+  color: var(--card-text);
+  opacity: 0.55;
   font-weight: 500;
 }
 
@@ -260,22 +289,21 @@ main {
   letter-spacing: 0.08em;
   padding: 0.1em 0.4em;
   border-radius: 3px;
-  border: 1px solid rgba(255,255,255,0.5);
-  color: rgba(255,255,255,0.7);
+  border: 1px solid currentColor;
+  opacity: 0.7;
 }
 
 /* --- Post page ------------------------------------------------------------ */
 
 .post-back {
   display: inline-block;
-  font-size: 0.82rem;
+  font-size: 0.75rem;
   color: var(--muted);
   text-decoration: none;
   margin-bottom: 2rem;
   font-weight: 500;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-  font-size: 0.75rem;
   transition: color 0.15s ease;
 }
 
@@ -318,7 +346,8 @@ main {
 /* --- Code ----------------------------------------------------------------- */
 
 pre {
-  background: #0d0d0d;
+  background: #1a1a1a;
+  color: #f0ede8;
   border: 1px solid var(--line);
   border-radius: 10px;
   padding: 1.25rem;

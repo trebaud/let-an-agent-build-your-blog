@@ -1,24 +1,15 @@
 import type { Post } from "../../core/content"
 
-// Gradients cycle for cover cards
-const GRADIENTS = [
-  "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
-  "linear-gradient(135deg, #2d1b69 0%, #11998e 100%)",
-  "linear-gradient(135deg, #3d0000 0%, #8b0000 50%, #ff4500 100%)",
-  "linear-gradient(135deg, #0a192f 0%, #112240 50%, #1e3a5f 100%)",
-  "linear-gradient(135deg, #1a0533 0%, #3d1066 50%, #6b21a8 100%)",
-]
-
 export const renderPostsList = (posts: Post[]) => {
   const cards = posts.map((post, i) => {
     const date = new Date(post.meta.pubDate)
     const formattedDate = date.toLocaleDateString("en-US", {
       month: "long", day: "numeric", year: "numeric",
     })
-    const gradient = GRADIENTS[i % GRADIENTS.length]
     const tags = post.meta.tags ?? []
+    const gradClass = `grad-${(i % 5) + 1}`
 
-    return `<article class="cover-card" style="background: ${gradient};">
+    return `<article class="cover-card ${gradClass}">
       <a href="/posts/${post.slug}" class="cover-link">
         <div class="cover-body">
           ${tags.length ? `<div class="cover-tags">${tags.map((t) => `<span class="cover-tag">#${t}</span>`).join("")}</div>` : ""}

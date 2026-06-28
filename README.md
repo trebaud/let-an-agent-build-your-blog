@@ -66,7 +66,7 @@ the sitemap, and the RSS feed.
 
 ## Theme gallery
 
-**▶ Browse them all live: [trebaud.github.io/let-an-agent-build-your-blog](https://trebaud.github.io/let-an-agent-build-your-blog/)** (10 themes)
+**▶ Browse them all live: [trebaud.github.io/let-an-agent-build-your-blog](https://trebaud.github.io/let-an-agent-build-your-blog/)** (15 themes)
 
 ### Terminal — default
 
@@ -124,19 +124,40 @@ Serif over a twinkling night sky.
 
 ![Cosmic theme](docs/themes/cosmic.gif)
 
-### Neural Frontier
+### Margin — sidebar
 
-AI/AGI research aesthetic — near-black bg, electric blue + matrix green accents, full monospace, animated scan line.
-[Live demo](https://trebaud.github.io/let-an-agent-build-your-blog/neural/) · [`theme/neural`](../../tree/theme/neural)
+Fixed left sidebar with brand, nav and socials; Lora serif content column.
+[Live demo](https://trebaud.github.io/let-an-agent-build-your-blog/sidebar/) · [`theme/sidebar`](../../tree/theme/sidebar)
 
-![Neural Frontier theme](docs/themes/neural.png)
+![Margin sidebar theme](docs/themes/sidebar.png)
 
-### Afterhours
+### The Daily Build — newspaper
 
-Vintage jazz guitar — warm dark club tones, Playfair Display serif, gold accents, music-note post bullets.
-[Live demo](https://trebaud.github.io/let-an-agent-build-your-blog/jazz/) · [`theme/jazz`](../../tree/theme/jazz)
+Classic broadsheet: dark Playfair masthead, featured top story, multi-column article grid.
+[Live demo](https://trebaud.github.io/let-an-agent-build-your-blog/newspaper/) · [`theme/newspaper`](../../tree/theme/newspaper)
 
-![Afterhours jazz theme](docs/themes/jazz.png)
+![The Daily Build newspaper theme](docs/themes/newspaper.png)
+
+### Chronicle — timeline
+
+Posts alternate left/right of a center spine with date bubbles.
+[Live demo](https://trebaud.github.io/let-an-agent-build-your-blog/timeline/) · [`theme/timeline`](../../tree/theme/timeline)
+
+![Chronicle timeline theme](docs/themes/timeline.png)
+
+### Bento — grid
+
+Apple-style bento grid: featured cell spans 2 columns, smaller cells each get a distinct accent color.
+[Live demo](https://trebaud.github.io/let-an-agent-build-your-blog/bento/) · [`theme/bento`](../../tree/theme/bento)
+
+![Bento grid theme](docs/themes/bento.png)
+
+### Spread — cover cards
+
+Full-bleed gradient cards per post. Fraunces display serif, vivid pastel gradients in light mode.
+[Live demo](https://trebaud.github.io/let-an-agent-build-your-blog/covercards/) · [`theme/covercards`](../../tree/theme/covercards)
+
+![Spread cover cards theme](docs/themes/covercards.png)
 
 ## License
 

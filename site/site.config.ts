@@ -18,6 +18,13 @@ export const CONFIG = {
     { title: "github", href: "https://github.com/your-handle/let-an-agent-build-your-blog" },
     { title: "rss", href: "/feed.xml" },
   ],
+  // Optional: Twitter/X handle (e.g. "@yourhandle"). Used for twitter:creator
+  // and twitter:site meta tags. Leave empty to omit.
+  TWITTER_HANDLE: "",
+  // Optional: absolute URL of a default social card image used for og:image
+  // when no post-specific image is set (e.g. "${BASE_URL}/assets/og-image.png").
+  // Leave empty to omit og:image tags entirely.
+  OG_IMAGE: "",
   // Optional privacy-friendly analytics (Umami). Leave both empty to omit the
   // analytics snippet entirely — see site/components/layout.ts.
   ANALYTICS_DOMAIN: "",

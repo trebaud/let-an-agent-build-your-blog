@@ -9,6 +9,8 @@ export type PageMeta = {
   ogType?: "website" | "article"
   pubDate?: string
   jsonLd?: string
+  ogImage?: string
+  tags?: string[]
 }
 
 export const renderPage = (meta: PageMeta, content: string) => {
@@ -20,6 +22,8 @@ export const renderPage = (meta: PageMeta, content: string) => {
     ogType = "website",
     pubDate,
     jsonLd,
+    ogImage = CONFIG.OG_IMAGE || undefined,
+    tags,
   } = meta
 
   const fullTitle = path === "/" ? CONFIG.BLOG_TITLE : `${title} | ${CONFIG.BLOG_TITLE}`
@@ -41,12 +45,17 @@ export const renderPage = (meta: PageMeta, content: string) => {
     <meta property="og:description" content="${escapedDescription}" />
     <meta property="og:url" content="${canonicalUrl}" />
     <meta property="og:site_name" content="${CONFIG.BLOG_TITLE}" />
+    <meta property="og:locale" content="en_US" />
+    ${ogImage ? `<meta property="og:image" content="${ogImage}" />\n    <meta property="og:image:alt" content="${fullTitle}" />` : ""}
     ${pubDate ? `<meta property="article:published_time" content="${pubDate}" />` : ""}
+    ${ogType === "article" && tags?.length ? tags.map((t) => `<meta property="article:tag" content="${t}" />`).join("\n    ") : ""}
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="${ogImage ? "summary_large_image" : "summary"}" />
     <meta name="twitter:title" content="${fullTitle}" />
     <meta name="twitter:description" content="${escapedDescription}" />
+    ${ogImage ? `<meta name="twitter:image" content="${ogImage}" />` : ""}
+    ${CONFIG.TWITTER_HANDLE ? `<meta name="twitter:creator" content="${CONFIG.TWITTER_HANDLE}" />\n    <meta name="twitter:site" content="${CONFIG.TWITTER_HANDLE}" />` : ""}
 
     <!-- Feeds -->
     <link rel="alternate" type="application/rss+xml" title="${CONFIG.BLOG_TITLE}" href="${CONFIG.BASE_URL}/feed.xml" />

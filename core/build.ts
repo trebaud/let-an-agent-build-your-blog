@@ -65,6 +65,7 @@ async function generateIndividualPosts(posts: Awaited<ReturnType<typeof loadPost
           description: post.meta.description,
           ogType: "article",
           pubDate,
+          tags: post.meta.tags,
           jsonLd: buildJsonLd(post),
         },
         renderPostContent(post)
@@ -148,6 +149,11 @@ ${items}
   await fs.writeFile(`${OUTPUT_DIR}/feed.xml`, xml)
 }
 
+async function generateRobotsTxt() {
+  const content = `User-agent: *\nAllow: /\n\nSitemap: ${CONFIG.BASE_URL}/sitemap.xml\n`
+  await fs.writeFile(`${OUTPUT_DIR}/robots.txt`, content)
+}
+
 export async function buildSite() {
   await setupOutputDirectory()
   await copyStatic()
@@ -157,4 +163,5 @@ export async function buildSite() {
   await generateIndividualPosts(posts)
   await generateSitemap(pages, posts)
   await generateRssFeed(posts)
+  await generateRobotsTxt()
 }

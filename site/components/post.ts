@@ -37,6 +37,7 @@ export const buildJsonLd = (post: Post): string => {
     description: post.meta.description ?? CONFIG.BLOG_SUBTITLE,
     url,
     datePublished: pubDate,
+    ...(post.meta.tags.length > 0 ? { keywords: post.meta.tags.join(", ") } : {}),
     author: {
       "@type": "Person",
       name: CONFIG.AUTHOR,

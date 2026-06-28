@@ -52,6 +52,9 @@ export const renderPage = (meta: PageMeta, content: string) => {
     <link rel="alternate" type="application/rss+xml" title="${CONFIG.BLOG_TITLE}" href="${CONFIG.BASE_URL}/feed.xml" />
 
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${CONFIG.FAVICON_EMOJI}</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script>
       (function () {
         try {
@@ -60,24 +63,26 @@ export const renderPage = (meta: PageMeta, content: string) => {
         } catch (e) {}
       })();
     </script>
-    <link rel="stylesheet" href="https://unpkg.com/bamboo.css">
     <link rel="stylesheet" href="${CONFIG.STYLES_HREF}">
     ${jsonLd ? `<script type="application/ld+json">${jsonLd}</script>` : ""}
     ${CONFIG.ANALYTICS_DOMAIN && CONFIG.ANALYTICS_WEBSITE_ID ? `<script defer src="https://${CONFIG.ANALYTICS_DOMAIN}/script.js" data-website-id="${CONFIG.ANALYTICS_WEBSITE_ID}"></script>` : ""}
   </head>
   <body>
     <header class="site-header">
-      <div class="site-bar">
+      <div class="header-inner">
         <a href="/" class="site-brand">
-          <span class="site-prompt">${CONFIG.FAVICON_EMOJI}</span>${CONFIG.BLOG_BRAND}
+          <span class="site-prompt">${CONFIG.FAVICON_EMOJI}</span>
+          <span class="brand-name">${CONFIG.BLOG_BRAND}</span>
         </a>
-        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle color theme">
-          <span class="theme-icon theme-icon-dark">◑</span>
-          <span class="theme-icon theme-icon-light">◐</span>
-        </button>
+        <div class="header-right">
+          ${renderNavBar(path)}
+          <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle color theme">
+            <span class="theme-icon theme-icon-dark">◑</span>
+            <span class="theme-icon theme-icon-light">◐</span>
+          </button>
+        </div>
       </div>
-      <p class="site-tagline">~ ${CONFIG.BLOG_SUBTITLE}</p>
-      ${renderNavBar(path)}
+      <p class="site-tagline">${CONFIG.BLOG_SUBTITLE}</p>
     </header>
     <main>
       ${content}

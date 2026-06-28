@@ -1,40 +1,41 @@
 import type { Post } from "../../core/content"
 
+// Bento grid: first post is featured (spans 2 cols), rest are 1x1 cells
 export const renderPostsList = (posts: Post[]) => {
-  // Group posts by year
-  const grouped = posts.reduce((acc, post) => {
-    const year = new Date(post.meta.pubDate).getFullYear()
-    if (!acc[year]) acc[year] = []
-    acc[year].push(post)
-    return acc
-  }, {} as Record<number, Post[]>)
+  if (posts.length === 0) return `<p class="no-posts">No posts yet.</p>`
 
-  // Sort years descending
-  const years = Object.keys(grouped).map(Number).sort((a, b) => b - a)
+  const [featured, ...rest] = posts
 
-  const html = years.map((year) => {
-    const yearPosts = grouped[year]
-    return `<section class="year-section">
-      <h2 class="year-heading"><span class="year-label">${year}</span></h2>
-      <ul class="posts-list">
-        ${yearPosts.map(({ meta, slug, readingTime }) => {
-          const date = new Date(meta.pubDate)
-          const formattedDate = date.toLocaleDateString("en-US", {
-            month: "short",
-            day: "numeric",
-          })
-          return `<li class="post-row">
-            <a href="/posts/${slug}" class="post-link">
-              <span class="post-arrow">→</span>
-              <span class="post-title">${meta.title}${meta.draft ? ` <span class="draft-badge">draft</span>` : ""}</span>
-              <span class="post-meta">${formattedDate} · ${readingTime} min</span>
-            </a>
-            ${meta.description ? `<p class="post-description">${meta.description}</p>` : ""}
-          </li>`
-        }).join("")}
-      </ul>
-    </section>`
+  const featuredDate = new Date(featured.meta.pubDate).toLocaleDateString("en-US", {
+    month: "short", day: "numeric", year: "numeric",
+  })
+
+  const featuredCell = `<a href="/posts/${featured.slug}" class="bento-cell bento-featured">
+    <div class="cell-inner">
+      <div class="cell-kicker">Featured</div>
+      <h2 class="cell-title">${featured.meta.title}${featured.meta.draft ? ` <span class="draft-badge">draft</span>` : ""}</h2>
+      ${featured.meta.description ? `<p class="cell-desc">${featured.meta.description}</p>` : ""}
+      <div class="cell-meta">${featuredDate} · ${featured.readingTime} min</div>
+    </div>
+  </a>`
+
+  const gridCells = rest.map((post, i) => {
+    const date = new Date(post.meta.pubDate).toLocaleDateString("en-US", {
+      month: "short", day: "numeric",
+    })
+    const colorClass = `cell-color-${(i % 5) + 1}`
+    return `<a href="/posts/${post.slug}" class="bento-cell bento-small ${colorClass}">
+      <div class="cell-inner">
+        ${post.meta.tags?.[0] ? `<div class="cell-kicker">${post.meta.tags[0]}</div>` : ""}
+        <h3 class="cell-title">${post.meta.title}${post.meta.draft ? ` <span class="draft-badge">draft</span>` : ""}</h3>
+        ${post.meta.description ? `<p class="cell-desc">${post.meta.description}</p>` : ""}
+        <div class="cell-meta">${date} · ${post.readingTime} min</div>
+      </div>
+    </a>`
   }).join("")
 
-  return `<div class="all-posts">${html}</div>`
+  return `<div class="bento-grid">
+    ${featuredCell}
+    ${gridCells}
+  </div>`
 }
